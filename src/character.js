@@ -1,35 +1,32 @@
 import {keyPressed, Sprite} from "kontra";
 
+export class Player extends Sprite {
+    x = 100
+    y = 80
+    color = 'red'
+    width = 20
+    height = 40
 
-let character = Sprite({
-    x: 100,        // starting x,y position of the sprite
-    y: 80,
-    color: 'red',  // fill color of the sprite rectangle
-    width: 20,     // width and height of the sprite rectangle
-    height: 40,
-});
+    handleCharacterMovement(canvas) {
+        if (keyPressed('arrowleft')) {
+            console.log('left')
+            if (this.x > 0) {
+                this.x -= 1;
+            }
+        } else if (keyPressed('arrowright')) {
+            if (this.x < canvas.width) {
+                this.x += 1;
+            }
+        }
 
-let handleCharacterMovement = (canvas) => {
-    if (keyPressed('arrowleft')) {
-        if (character.x > canvas.width) {
-            character.x = +character.width;
-        }
-    } else if (keyPressed('arrowright')) {
-        if (character.x > canvas.width) {
-            character.x = -character.width;
-        }
-    }
-
-    if (keyPressed('arrowup')) {
-        if (character.y > canvas.height) {
-            character.y = -character.height;
-        }
-    } else if (keyPressed('arrowdown')) {
-        if (character.y > canvas.height) {
-            character.y = +character.height;
+        if (keyPressed('arrowup')) {
+            if (this.y > 0) {
+                this.y -= 1;
+            }
+        } else if (keyPressed('arrowdown')) {
+            if (this.y < canvas.height) {
+                this.y += 1;
+            }
         }
     }
 }
-
-
-export {character, handleCharacterMovement}
