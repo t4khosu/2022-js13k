@@ -1,7 +1,6 @@
-# js13kgames boiledplate
+# 2022 JS13K Submission - TITLE
 
-Initial code to start your game for the annual contest js13kgames.
-Base in kontra.js library and webpack.
+Description of our submission
 
 ## Resources
 
@@ -17,13 +16,12 @@ You can start the project in develop with the command `npm start`. This has live
 
 To build the project in production and generate the *game.zip* file, you only need to run the command `npm run build`.
 
-## Author
+## Authors
 
-- wil92
+- Christian Staudte
+- Tim Streicher
 
-## Contributions
-
-All contributions are welcome.
+Forked from wil92's repository: https://github.com/wil92/js13games-boilerplate
 
 ## License
 
