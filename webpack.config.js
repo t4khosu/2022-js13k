@@ -4,7 +4,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const environment = process.env.NODE_ENV || 'development';
 const port = process.env.PORT || 9000;
@@ -30,8 +30,8 @@ module.exports = {
         test: /.s?css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          {loader: "css-loader", options: {sourceMap: true}},
-          {loader: "sass-loader", options: {sourceMap: true}}
+          { loader: "css-loader", options: { sourceMap: true } },
+          { loader: "sass-loader", options: { sourceMap: true } }
         ]
       },
       {
@@ -45,10 +45,10 @@ module.exports = {
     new MiniCssExtractPlugin(),
     new CopyPlugin({
       patterns: [
-        {from: "./*.html"},
+        { from: "./*.html" },
 
         // copy assets to the build
-        {from: "./assets/"}
+        { from: "./assets/" }
       ],
     })
   ],
@@ -68,10 +68,9 @@ module.exports = {
     ],
   },
   devServer: {
-    contentBase: [path.join(__dirname, 'src'), path.join(__dirname, 'dist')],
+    static: [path.join(__dirname, 'src'), path.join(__dirname, 'dist')],
     port: port,
     hot: true,
-    inline: true,
     liveReload: true
   },
 };
