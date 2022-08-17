@@ -1,8 +1,8 @@
-import {Player} from "../character";
-import {getCanvas, Scene, Text} from "kontra";
+import {Player} from "../entities/player";
+import {getCanvas, onKey, Scene, Text} from "kontra";
+import {getManager} from "./scene-manager";
 
 export class MenuScene extends Scene {
-
 
     constructor() {
         const canvas = getCanvas()
@@ -19,7 +19,13 @@ export class MenuScene extends Scene {
 
         const properties = {
             id: 'menu',
-            objects: [text]
+            objects: [text],
+            onShow() {
+                console.log('onShow')
+                onKey('enter', () => {
+                    getManager().setScene('game')
+                })
+            },
         }
 
         super(properties);

@@ -1,4 +1,4 @@
-import {keyPressed, Sprite} from "kontra";
+import {getCanvas, keyPressed, Sprite} from "kontra";
 
 export class Player extends Sprite {
     x = 100
@@ -6,6 +6,11 @@ export class Player extends Sprite {
     color = 'red'
     width = 20
     height = 40
+
+    update(dt) {
+        this.advance();
+        this.handleCharacterMovement(getCanvas())
+    }
 
     handleCharacterMovement(canvas) {
         if (keyPressed('arrowleft')) {

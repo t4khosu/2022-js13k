@@ -2,22 +2,28 @@ import {GameObjectClass} from "kontra";
 import {GameScene} from "./game-scene";
 import {MenuScene} from "./menu-scene";
 
+let currentManager = undefined
+
+export function getManager() {
+    return currentManager
+}
+
 export class SceneManager extends GameObjectClass {
     scenes = {
-        menu: new MenuScene(this), game: new GameScene(this),
+        menu: new MenuScene(), game: new GameScene(),
     }
 
     activeScene
-    canvas
 
-    constructor(canvas) {
+    constructor() {
         super()
-        this.canvas = canvas
         this.setScene("menu")
+        currentManager = this
     }
 
     setScene(sceneKey) {
         if (this.activeScene) {
+            console.log(`hiding scene ${this.activeScene}`)
             this.activeScene.hide()
         }
         this.activeScene = this.scenes[sceneKey]

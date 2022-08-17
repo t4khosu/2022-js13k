@@ -1,5 +1,5 @@
 import {init, Sprite, GameLoop, initKeys, keyPressed} from 'kontra';
-import {Player} from './character'
+import {Player} from './entities/player'
 import {SceneManager} from "./scenes/scene-manager";
 
 let {canvas} = init();
@@ -7,6 +7,7 @@ let {canvas} = init();
 initKeys();
 
 const manager = new SceneManager()
+
 
 let loop = GameLoop({  // create the main game loop
     update: function () { // update the game state
