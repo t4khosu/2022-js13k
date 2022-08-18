@@ -1,12 +1,17 @@
 import {Player} from "../entities/player";
-import {Scene} from "kontra";
+import {Scene, SceneClass} from "kontra";
+import {Word} from "../entities/word";
+import {Page} from "../entities/page";
+import {Level} from "../entities/level";
 
-export class GameScene extends Scene {
+export class GameScene extends SceneClass {
     constructor() {
+        const level = new Level()
         const player = new Player()
+        const page = new Page()
         const properties = {
             id: 'game',
-            objects: [player],
+            objects: [level, player, page],
             // update: this.update,
         }
 
@@ -14,7 +19,6 @@ export class GameScene extends Scene {
     }
 
     update(dt) {
-        console.log('gamescene update')
         super.update(dt)
     }
 
