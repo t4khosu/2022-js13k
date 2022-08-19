@@ -1,4 +1,4 @@
-import {randInt, SpriteClass} from "kontra";
+import {on, Pool, randInt, Sprite, SpriteClass} from "kontra";
 import {generateName} from "../utils/name-generator";
 import {BulletPool} from "./bullet-pool";
 
@@ -10,24 +10,45 @@ export class Enemy extends SpriteClass {
     width = 20
     height = 40
 
-    pool
 
     constructor() {
         super();
         this.name = generateName()
+        this.nameArray = this.name.split(' ')
+        this.currentNamePart = 0
         console.log(this.name)
 
-        this.pool = new BulletPool()
-        this.children = [this.pool]
+        // this.pool = Pool({
+        //     create: Sprite
+        // })
+        // this.children = [this.pool]
+
+
     }
 
-    update(dt) {
+
+    move() {
         // TODO this is just garbage movement
         this.x += randInt(-1, 1)
         this.y = randInt(-1, 1)
+    }
 
-        // create bullets
-        this.pool.get()
+    wordReact(context, word) {
+        // check for name hit
+        if (context.nameArray[context.currentNamePart] === word) {
+            //
+            context.currentNamePart += 1
+        }
+    }
+
+    update(dt) {
+        const context = this
+        on('onWordType', (word) => {
+            this.wordReact(context, word)
+        });
+        this.move()
+
+        //TODO create bullets
     }
 
 

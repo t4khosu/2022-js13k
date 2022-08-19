@@ -1,4 +1,4 @@
-import {on, onKey, Text, TextClass} from 'kontra'
+import {emit, on, onKey, Text, TextClass} from 'kontra'
 
 
 const alphabet = []
@@ -17,17 +17,17 @@ export class Word extends TextClass {
 
     }
 
-    clearText() {
-        this.text = ''
-    }
 
     update(dt) {
         // TODO does not work
-        on('clearWord', this.clearText);
         const context = this
+        on('clearWord', () => { // separate function does not bind this
+            context.text = ''
+        });
         onKey(alphabet, function (e) {
             console.log(context.text)
             context.text += e.key
+            emit('onWordType', context.text)
         });
 
 
