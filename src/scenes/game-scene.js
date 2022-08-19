@@ -7,11 +7,10 @@ import {Level} from "../entities/level";
 export class GameScene extends SceneClass {
     constructor() {
         const level = new Level()
-        const player = new Player()
         const page = new Page()
         const properties = {
             id: 'game',
-            objects: [level, player, page],
+            objects: [level, page],
             // update: this.update,
         }
 
