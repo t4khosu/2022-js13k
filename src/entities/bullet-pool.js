@@ -1,6 +1,6 @@
-import { PoolClass, SpriteClass, Sprite } from "kontra";
+import { PoolClass, SpriteClass } from "kontra";
 import { Sprite } from "kontra";
-import kontra from 'kontra'
+
 
 // TODO maybe make this into a factory?
 export class Bullet extends SpriteClass {
@@ -13,7 +13,7 @@ export class Bullet extends SpriteClass {
 
 export class BulletPool extends PoolClass {
 
-    create = kontra.Sprite
+    create = () => new Bullet()
 
     get() {
         // the object will get these properties and values
@@ -30,26 +30,4 @@ export class BulletPool extends PoolClass {
         }
         super.get(properties)
     }
-
-    update() {
-        // apply field
-        let totalAccelerationX = 0;
-        let totalAccelerationY = 0;
-
-        for (let i = 0, field; (field = fields[i]); i++) {
-            let vectorX = field.x - this.x;
-            let vectorY = field.y - this.y;
-
-            let force = field.mass / Math.pow(vectorX * vectorX + vectorY * vectorY, 1.5);
-
-            totalAccelerationX += vectorX * force;
-            totalAccelerationY += vectorY * force;
-        }
-
-        this.ddx = totalAccelerationX;
-        this.ddy = totalAccelerationY;
-
-        this.advance();
-    }
-
 }
