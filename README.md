@@ -4,24 +4,28 @@ Description of our submission
 
 ## Resources
 
-- kontra.js library
-- webpack setup (build)
-- sass styles
+- kontra.js >= 8.0.0
+- rollup
 
-## Develop mode
+## Commands
 
-You can start the project in develop with the command `npm start`. This has live reloading after any change in the code.
+Develop mode
+```
+npm run start
+```
 
-## Build project
-
-To build the project in production and generate the *game.zip* file, you only need to run the command `npm run build`.
+Build project
+```
+npm run build
+```
 
 ## Authors
 
 - Christian Staudte
 - Tim Streicher
 
-Forked from wil92's repository: https://github.com/wil92/js13games-boilerplate
+- Forked from wil92's repository: https://github.com/wil92/js13games-boilerplate  
+- Additional code used from jvalecillos' repository: https://github.com/jvalecillos/js13k-rollup-starter
 
 ## License
 
