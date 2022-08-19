@@ -1,5 +1,6 @@
 import {randInt, SpriteClass} from "kontra";
 import {generateName} from "../utils/name-generator";
+import {BulletPool} from "./bullet-pool";
 
 export class Enemy extends SpriteClass {
 
@@ -9,11 +10,15 @@ export class Enemy extends SpriteClass {
     width = 20
     height = 40
 
+    pool
 
     constructor() {
         super();
         this.name = generateName()
         console.log(this.name)
+
+        this.pool = new BulletPool()
+        this.children = [this.pool]
     }
 
     update(dt) {
@@ -21,6 +26,8 @@ export class Enemy extends SpriteClass {
         this.x += randInt(-1, 1)
         this.y = randInt(-1, 1)
 
+        // create bullets
+        this.pool.get()
     }
 
 

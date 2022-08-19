@@ -10,14 +10,16 @@ export function getManager() {
 
 export class SceneManager extends GameObjectClass {
     scenes = {
-        menu: new MenuScene(), game: new GameScene(),
+        menu: new MenuScene(),
+        game: new GameScene(),
     }
 
     activeScene
 
     constructor() {
         super()
-        this.setScene("menu")
+        // this.setScene("menu")
+        this.setScene("game")
         currentManager = this
     }
 

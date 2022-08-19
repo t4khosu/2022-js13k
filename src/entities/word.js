@@ -7,7 +7,7 @@ for (var i = 97; i < 123; i++)
 
 export class Word extends TextClass {
 
-    font = '16px Arial'
+    font = '16px Luminari '
     color = 'black'
     x = 0
     y = 0

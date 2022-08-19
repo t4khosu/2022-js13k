@@ -1,5 +1,9 @@
 import {emit, getCanvas, keyPressed, SpriteClass} from "kontra";
 
+export function getPlayer() {
+    return currentManager
+}
+
 export class Player extends SpriteClass {
     x = 100
     y = 80
