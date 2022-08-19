@@ -1,4 +1,5 @@
 import {randInt, SpriteClass} from "kontra";
+import {generateName} from "../utils/name-generator";
 
 export class Enemy extends SpriteClass {
 
@@ -9,10 +10,10 @@ export class Enemy extends SpriteClass {
     height = 40
 
 
-    name = 'Foo'
-
     constructor() {
         super();
+        this.name = generateName()
+        console.log(this.name)
     }
 
     update(dt) {
