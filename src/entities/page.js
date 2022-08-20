@@ -1,19 +1,17 @@
-import {GameObjectClass, getCanvas, Sprite, SpriteClass} from "kontra";
-import {Word} from "./word";
+import { GameObjectClass, getCanvas, Sprite, SpriteClass } from "kontra";
+import { Word } from "./word";
 
 export class Page extends SpriteClass {
-    x = 0
-    y = 0
-    width = 150
-    height = 150
-    color = '#fff7b8'
+    x = 400
+    y = 60
+    width = 220
+    height = 330
+    color = '#f2dcb1'
 
     constructor() {
         super();
         const canvas = getCanvas()
         const word = new Word()
-        this.x = canvas.width - this.width
-        this.y = canvas.height - this.height
 
         this.children = [word]
     }

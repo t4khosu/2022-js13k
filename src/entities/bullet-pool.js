@@ -29,7 +29,7 @@ export class BulletPool extends PoolClass {
                 y: this.y,
                 dx: 2 - Math.random() * 4,
                 dy: Math.random() + 2,
-                ttl: 150,
+                ttl: 20,
             })
     }
 

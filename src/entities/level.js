@@ -1,33 +1,41 @@
-import {collides, getCanvas, SpriteClass} from "kontra";
-import {Enemy} from "./enemy";
-import {BulletPool} from "./bullet-pool";
-import {Player} from "./player";
+import { collides, getCanvas, SpriteClass } from "kontra";
+import { Enemy } from "./enemy";
+import { BulletPool } from "./bullet-pool";
+import { Player } from "./player";
+import { Gravestone } from "./gravestone";
 
 export class Level extends SpriteClass {
 
-    color = 'green'
+    color = '#8da683'
     difficulty = 1
     bulletPool
     enemy
     player
+    x = 0
+    y = 0
+    width = 350
 
     constructor() {
         super();
         const canvas = getCanvas()
-        const padding = 10
 
-        this.x = padding
-        this.y = padding
-
-        this.width = canvas.width - 2 * padding
-        this.height = canvas.height - 2 * padding
+        this.height = canvas.height
 
         this.enemy = new Enemy()
 
         this.bulletPool = new BulletPool()
         this.player = new Player()
 
-        this.children = [this.enemy, this.bulletPool, this.player]
+        let gravestones = [
+            new Gravestone(90, 30, 'Tester'),
+            new Gravestone(120, 70, 'Random Leiche'),
+            new Gravestone(200, 180, 'Peter')
+        ]
+
+        this.player.colliders = gravestones
+
+
+        this.children = [...gravestones, this.enemy, this.bulletPool, this.player]
     }
 
     matchPoolToEnemy() {
@@ -39,14 +47,14 @@ export class Level extends SpriteClass {
         // TODO enemy should handle bullets somehow
         // we cant put the pool into the enemy GO because it restricts the area. Maybe this can be remedied somehow?
         this.matchPoolToEnemy()
-        this.bulletPool.get()
+        // this.bulletPool.get()
 
         //check hits
-        if (this.bulletPool.checkHit(this.player))
-            this.player.color = 'blue'
+        // if (this.bulletPool.checkHit(this.player))
+        //     this.player.color = 'blue'
 
-        if (collides(this.player, this.enemy))
-            this.player.color = 'blue'
+        // if (collides(this.player, this.enemy))
+        //     this.player.color = 'blue'
 
         super.update(dt)
     }

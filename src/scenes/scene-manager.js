@@ -1,6 +1,6 @@
-import {GameObjectClass} from "kontra";
-import {GameScene} from "./game-scene";
-import {MenuScene} from "./menu-scene";
+import { GameObjectClass } from "kontra";
+import { GameScene } from "./game-scene";
+import { MenuScene } from "./menu-scene";
 
 let currentManager = undefined
 
@@ -9,25 +9,23 @@ export function getManager() {
 }
 
 export class SceneManager extends GameObjectClass {
-    scenes = {
-        menu: new MenuScene(),
-        game: new GameScene(),
-    }
+    scenes = {}
 
     activeScene
 
     constructor() {
         super()
+        this.scenes = {
+            menu: new MenuScene(),
+            game: new GameScene(),
+        }
         // this.setScene("menu")
         this.setScene("game")
         currentManager = this
     }
 
     setScene(sceneKey) {
-        if (this.activeScene) {
-            console.log(`hiding scene ${this.activeScene}`)
-            this.activeScene.hide()
-        }
+        this.activeScene?.hide()
         this.activeScene = this.scenes[sceneKey]
         this.activeScene.show()
         return this.activeScene

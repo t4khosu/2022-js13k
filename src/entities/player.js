@@ -1,4 +1,4 @@
-import {emit, getCanvas, keyPressed, SpriteClass} from "kontra";
+import { emit, getCanvas, keyPressed, SpriteClass, collides } from "kontra";
 
 export function getPlayer() {
     return currentManager
@@ -12,10 +12,12 @@ export class Player extends SpriteClass {
     height = 40
 
     channelTime = 1.5
+    colliders = []
 
     update(dt) {
         super.update()
         this.handleCharacterMovement(getCanvas())
+        this.colliders.forEach(c => collides(this, c) ? c.onPlayerCollisionEnter() : c.onPlayerCollisionExit())
     }
 
     handleCharacterMovement(canvas) {
@@ -24,7 +26,6 @@ export class Player extends SpriteClass {
             emit('clearWord')
         } else {
             if (keyPressed('arrowleft')) {
-                console.log('left')
                 if (this.x > 0) {
                     this.x -= 1;
                 }
