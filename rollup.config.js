@@ -25,17 +25,17 @@ export default {
                 "assets/",
             ],
         }),
-        kontra({ // tree-shaking
-            gameObject: {
-                anchor: true,
-                group: true,
-                velocity: true,
-            },
-            text: {
-                newline: true
-            },
-            debug: !production
-        }),
+        // kontra({ // tree-shaking
+        //     gameObject: {
+        //         anchor: true,
+        //         group: true,
+        //         velocity: true,
+        //     },
+        //     text: {
+        //         newline: true
+        //     },
+        //     debug: !production
+        // }),
 
         resolve(), // add node modules
         commonjs(), // transform code to ES6 to make compatible with rollup

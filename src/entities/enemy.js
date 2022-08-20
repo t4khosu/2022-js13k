@@ -1,11 +1,11 @@
-import {on, Pool, randInt, Sprite, SpriteClass} from "kontra";
-import {generateName} from "../utils/name-generator";
-import {BulletPool} from "./bullet-pool";
+import { on, Pool, randInt, Sprite, SpriteClass } from "kontra";
+import { generateName } from "../utils/name-generator";
+import { BulletPool } from "./bullet-pool";
 
 export class Enemy extends SpriteClass {
 
-    x = 0
-    y = 0
+    x = 50
+    y = 50
     color = 'red'
     width = 20
     height = 40
@@ -16,7 +16,6 @@ export class Enemy extends SpriteClass {
         this.name = generateName()
         this.nameArray = this.name.split(' ')
         this.currentNamePart = 0
-        console.log(this.name)
 
         // this.pool = Pool({
         //     create: Sprite
@@ -29,8 +28,8 @@ export class Enemy extends SpriteClass {
 
     move() {
         // TODO this is just garbage movement
-        this.x += randInt(-1, 1)
-        this.y = randInt(-1, 1)
+        // this.x += randInt(-1, 1)
+        // this.y = randInt(-1, 1)
     }
 
     wordReact(context, word) {

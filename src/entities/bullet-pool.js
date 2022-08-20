@@ -1,34 +1,36 @@
 import { collides, GameObject, GameObjectClass, Pool, PoolClass, SpriteClass } from "kontra";
 import { Sprite } from "kontra";
 
-// TODO maybe make this into a factory?
 export class Bullet extends SpriteClass {
-    x = 0
-    y = 0
-    width = 2
-    height = 2
-    color = 'red'
+    init(properties) {
+        super.init({
+            width: 3,
+            height: 3,
+            color: "red",
+            ...properties
+        })
+    }
 }
 
 export class BulletPool extends PoolClass {
+    maxSize = 100
+    time = 0
 
     constructor() {
-        super({ create: Sprite });
+        super({ create: () => new Bullet() });
     }
 
     get() {
-        // the object will get these properties and values
-        const properties = {
-            x: this.x,
-            y: this.y,
-            dx: 2 - Math.random() * 4,
-            dy: 2 - Math.random() * 4,
-            color: 'red',
-            width: 2,
-            height: 2,
-            ttl: 300,
-        }
-        super.get(properties)
+        this.time += 1
+
+        if (this.time % 5 == 0)
+            super.get({
+                x: this.x,
+                y: this.y,
+                dx: 2 - Math.random() * 4,
+                dy: Math.random() + 2,
+                ttl: 150,
+            })
     }
 
 
