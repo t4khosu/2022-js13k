@@ -1,5 +1,6 @@
-import { collides, GameObject, GameObjectClass, Pool, PoolClass, SpriteClass } from "kontra";
-import { Sprite } from "kontra";
+import {collides, GameObject, GameObjectClass, Pool, PoolClass, SpriteClass} from "kontra";
+import {Sprite} from "kontra";
+import {BulletGenerator, BulletGeneratorConfig} from "../utils/bullet-generator";
 
 export class Bullet extends SpriteClass {
     init(properties) {
@@ -13,24 +14,27 @@ export class Bullet extends SpriteClass {
 }
 
 export class BulletPool extends PoolClass {
-    maxSize = 100
+    maxSize = 1000
     time = 0
 
     constructor() {
-        super({ create: () => new Bullet() });
+        super({create: () => new Bullet()});
+        const config = new BulletGeneratorConfig()
+        this.generator = new BulletGenerator(config)
     }
 
     get() {
         this.time += 1
 
-        if (this.time % 5 == 0)
-            super.get({
-                x: this.x,
-                y: this.y,
-                dx: 2 - Math.random() * 4,
-                dy: Math.random() + 2,
-                ttl: 150,
-            })
+        super.get({
+            x: this.x,
+            y: this.y,
+            dx: 0,
+            dy: 1,
+            update: this.generator.generate()
+
+        })
+        // if (this.time % 5 === 0)
     }
 
 

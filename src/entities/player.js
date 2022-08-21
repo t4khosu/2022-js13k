@@ -24,7 +24,6 @@ export class Player extends SpriteClass {
             emit('clearWord')
         } else {
             if (keyPressed('arrowleft')) {
-                console.log('left')
                 if (this.x > 0) {
                     this.x -= 1;
                 }

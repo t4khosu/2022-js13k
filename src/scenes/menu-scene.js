@@ -1,4 +1,3 @@
-import {Player} from "../entities/player";
 import {getCanvas, onKey, Scene, SceneClass, Text} from "kontra";
 import {getManager} from "./scene-manager";
 

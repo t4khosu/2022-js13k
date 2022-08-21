@@ -1,18 +1,43 @@
-import { on, Pool, randInt, Sprite, SpriteClass } from "kontra";
-import { generateName } from "../utils/name-generator";
-import { BulletPool } from "./bullet-pool";
+import {on, Pool, randInt, Sprite, SpriteClass} from "kontra";
+import {generateName} from "../utils/name-generator";
+import {BulletPool} from "./bullet-pool";
+
+
+class RandomWalk {
+
+    start
+
+    constructor(start) {
+        this.start = start
+    }
+
+    move() {
+
+    }
+}
+
+class CircleWalk extends RandomWalk {
+    constructor(start) {
+        super(start);
+    }
+
+    move() {
+
+    }
+
+}
+
 
 export class Enemy extends SpriteClass {
 
-    x = 50
-    y = 50
     color = 'red'
     width = 20
     height = 40
+    anchor = {x: 0.5, y: 0.5}
 
 
-    constructor() {
-        super();
+    constructor(properties) {
+        super(properties);
         this.name = generateName()
         this.nameArray = this.name.split(' ')
         this.currentNamePart = 0

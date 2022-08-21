@@ -1,6 +1,7 @@
 import {GameObjectClass} from "kontra";
 import {GameScene} from "./game-scene";
 import {MenuScene} from "./menu-scene";
+import {TestScene} from "./test-scene";
 
 let currentManager = undefined
 
@@ -12,6 +13,7 @@ export class SceneManager extends GameObjectClass {
     scenes = {
         menu: new MenuScene(),
         game: new GameScene(),
+        test: new TestScene(),
     }
 
     activeScene
@@ -19,7 +21,7 @@ export class SceneManager extends GameObjectClass {
     constructor() {
         super()
         // this.setScene("menu")
-        this.setScene("game")
+        this.setScene("test")
         currentManager = this
     }
 
