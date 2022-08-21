@@ -1,8 +1,9 @@
-import { collides, getCanvas, SpriteClass } from "kontra";
-import { Enemy } from "./enemy";
-import { BulletPool } from "./bullet-pool";
-import { Player } from "./player";
-import { Gravestone } from "./gravestone";
+import {collides, getCanvas, SpriteClass, randInt} from "kontra";
+import {Enemy} from "./enemy";
+import {BulletPool} from "./bullet-pool";
+import {Player} from "./player";
+import {Gravestone} from "./gravestone";
+import {generateName} from "../utils/name-generator";
 
 export class Level extends SpriteClass {
 
@@ -26,11 +27,12 @@ export class Level extends SpriteClass {
         this.bulletPool = new BulletPool()
         this.player = new Player()
 
-        let gravestones = [
-            new Gravestone(90, 30, 'Tester'),
-            new Gravestone(120, 70, 'Random Leiche'),
-            new Gravestone(200, 180, 'Peter')
-        ]
+        let gravestones = Array.from({length: 5}, () => new Gravestone(
+            (randInt(30 , 300) / 15 | 0) * 15, // a / b | 0 is a short approach for integer division
+            (randInt(30 , 250) / 15 | 0) * 15,
+            generateName()
+            )
+        )
 
         this.player.colliders = gravestones
 
