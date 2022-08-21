@@ -11,7 +11,7 @@ Description of our submission
 
 Develop mode
 ```
-npm run start
+npm run serve
 ```
 
 Build project
