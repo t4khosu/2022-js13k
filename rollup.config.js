@@ -30,6 +30,7 @@ export default {
                 anchor: true,
                 group: true,
                 velocity: true,
+                ttl: true,
             },
             debug: !production
         }),
