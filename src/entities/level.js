@@ -16,13 +16,15 @@ export class Level extends SpriteClass {
     y = 0
     width = 350
 
-    constructor() {
+    constructor(notebook) {
         super();
         const canvas = getCanvas()
 
         this.height = canvas.height
+        this.notebook = notebook
 
         this.enemy = new Enemy()
+        notebook.enemies.push(this.enemy)
 
         this.bulletPool = new BulletPool()
         this.player = new Player()

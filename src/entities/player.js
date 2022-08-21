@@ -1,15 +1,15 @@
-import { emit, getCanvas, keyPressed, SpriteClass, collides } from "kontra";
+import {getCanvas, keyPressed, SpriteClass, collides } from "kontra";
 
 export function getPlayer() {
     return currentManager
 }
 
 export class Player extends SpriteClass {
-    x = 100
-    y = 80
-    color = '#05b8ff'
-    width = 20
-    height = 40
+    x = 150
+    y = 300
+    color = '#000099'
+    width = 10
+    height = 10
 
     channelTime = 1.5
     colliders = []
@@ -21,30 +21,9 @@ export class Player extends SpriteClass {
     }
 
     handleCharacterMovement(canvas) {
-        if (keyPressed('space')) {
-            // TODO add channel time
-            emit('clearWord')
-        } else {
-            if (keyPressed('arrowleft')) {
-                if (this.x > 0) {
-                    this.x -= 1;
-                }
-            } else if (keyPressed('arrowright')) {
-                if (this.x + this.width < canvas.width) {
-                    this.x += 1;
-                }
-            }
-            if (keyPressed('arrowup')) {
-                if (this.y > 0) {
-                    this.y -= 1;
-                }
-            } else if (keyPressed('arrowdown')) {
-                if (this.y + this.height < canvas.height) {
-                    this.y += 1;
-                }
-            }
-
-        }
-
+        keyPressed('arrowleft') && this.x > 0 && (this.x--)
+        keyPressed('arrowright') && this.x + this.width < canvas.width && (this.x++)
+        keyPressed('arrowup') && this.y > 0 && (this.y--)
+        keyPressed('arrowdown') && this.y + this.height < canvas.height && (this.y++)
     }
 }
