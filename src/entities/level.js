@@ -15,31 +15,23 @@ export class Level extends SpriteClass {
     x = 0
     y = 0
     width = 350
+    height = 400
 
     constructor(notebook) {
         super();
-        const canvas = getCanvas()
 
-        this.height = canvas.height
-        this.notebook = notebook
-
-        this.enemy = new Enemy()
+        this.enemy = new Enemy(this)
         notebook.enemies.push(this.enemy)
 
         this.bulletPool = new BulletPool()
         this.player = new Player()
 
-        let gravestones = Array.from({length: 5}, () => new Gravestone(
-            (randInt(30 , 300) / 15 | 0) * 15, // a / b | 0 is a short approach for integer division
-            (randInt(30 , 250) / 15 | 0) * 15,
-            generateName()
-            )
-        )
+        let gravestone = new Gravestone(150, 50, this.enemy.name)
 
-        this.player.colliders = gravestones
+        this.player.colliders = [gravestone]
 
 
-        this.children = [...gravestones, this.enemy, this.bulletPool, this.player]
+        this.children = [gravestone, this.enemy, this.bulletPool, this.player]
     }
 
     matchPoolToEnemy() {
@@ -47,7 +39,7 @@ export class Level extends SpriteClass {
         this.bulletPool.y = this.enemy.y + this.enemy.height / 2
     }
 
-    update(dt) {
+    update() {
         // TODO enemy should handle bullets somehow
         // we cant put the pool into the enemy GO because it restricts the area. Maybe this can be remedied somehow?
         this.matchPoolToEnemy()
@@ -60,7 +52,7 @@ export class Level extends SpriteClass {
         // if (collides(this.player, this.enemy))
         //     this.player.color = 'blue'
 
-        super.update(dt)
+        super.update()
     }
 
 }

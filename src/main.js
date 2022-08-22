@@ -1,21 +1,18 @@
-import { init, Sprite, GameLoop, initKeys, keyPressed } from 'kontra';
-import { Player } from './entities/player'
-import { SceneManager } from "./scenes/scene-manager";
+import {init, GameLoop, initKeys, GameObjectClass, SpriteClass} from 'kontra';
+import {SceneManager} from "./scenes/scene-manager";
 
-let { canvas } = init();
-
+init();
 initKeys();
 
 const manager = new SceneManager()
 
-
-let loop = GameLoop({  // create the main game loop
-  update: function () { // update the game state
-    manager.activeScene.update()
-  },
-  render: function () { // render the game state
-    manager.activeScene.render()
-  }
+let loop = GameLoop({
+    update: () => {
+        manager.activeScene.update()
+    },
+    render: () => {
+        manager.activeScene.render()
+    }
 });
 
-loop.start();    // start the game
+loop.start();

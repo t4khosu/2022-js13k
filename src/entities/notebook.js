@@ -29,10 +29,10 @@ export class Notebook extends SpriteClass {
                 this.pageText.render()
             },
         });
-        this.newName()
+        this.newRow()
     }
 
-    newName(){
+    newRow(){
         (this.currentRow = (this.currentRow + 1) % this.textPositions.length) == 0 && this.clear()
 
         this.currentWord = Text({
@@ -53,10 +53,10 @@ export class Notebook extends SpriteClass {
     update(){
         this.pageText.text = this.numPage + ''
 
-        onKey('enter', () => this.newName())
+        onKey('enter', () => this.newRow())
         onKey(alphabet, (e) => {
             this.currentWord.text += this.currentWord.text.length < 19 ? e.key : ''
-            this.enemies.forEach(e => e.onType(this.currentWord.text))
+            this.enemies.forEach(e => e.onType(this.currentWord.text.substring(2)))
         })
         super.update()
     }

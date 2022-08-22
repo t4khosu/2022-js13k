@@ -8,29 +8,21 @@ export class Enemy extends SpriteClass {
     color = 'red'
     width = 20
     height = 40
+    dx = 1
+    dy = 0
+    speed = 1
 
-    constructor() {
-        super();
+    constructor(level) {
+        super({level: level});
         this.name = generateName()
-        this.nameArray = this.name.split(' ')
-        this.currentNamePart = 0
-
-        // this.pool = Pool({
-        //     create: Sprite
-        // })
-        // this.children = [this.pool]
     }
 
-
-    move() {
-        // TODO this is just garbage movement
+    onType(row){
+        this.name === row && this.level.removeChild(this)
     }
 
-    onType(name){
-        this.nameArray[this.currentNamePart] === name && (this.currentNamePart++)
-    }
-
-    update(dt) {
-        this.move()
+    update() {
+        (this.x <= 20 || this.x >= 250) && (this.dx *= -1)
+        this.x += this.dx * this.speed
     }
 }
