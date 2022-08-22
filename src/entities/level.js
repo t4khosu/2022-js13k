@@ -4,6 +4,7 @@ import {BulletPool} from "./bullet-pool";
 import {Player} from "./player";
 import {Gravestone} from "./gravestone";
 import {generateName} from "../utils/name-generator";
+import {Readable} from "./readable";
 
 export class Level extends SpriteClass {
 
@@ -26,7 +27,7 @@ export class Level extends SpriteClass {
         this.bulletPool = new BulletPool()
         this.player = new Player()
 
-        let gravestone = new Gravestone(150, 50, this.enemy.name)
+        let gravestone = new Gravestone(150, 120, this.enemy.name, this)
 
         this.player.colliders = [gravestone]
 

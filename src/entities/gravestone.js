@@ -1,18 +1,13 @@
-import { SpriteClass, Text } from "kontra";
+import {Readable} from "./readable";
 
-export class Gravestone extends SpriteClass {
+export class Gravestone extends Readable {
     width = 15
     height = 25
 
-    color = '#444444'
-    text = Text({ text: this.name, x: this.x + this.width / 2, y: this.y - 12, color: 'black', font: "14px Garamond", textAlign: 'center', anchor: { x: 0.5, y: 0.5 } })
-    playerCollision = false
+    dx = 2
+    time = 0
 
-    constructor(x, y, name) {
-        super({ x: x, y: y, name: name })
-    }
-
-    render = () => {
+    render(){
         this.context.fillStyle = this.color;
         this.context.beginPath();
         this.context.rect(this.x, this.y + 5, this.width, 5);
@@ -21,12 +16,21 @@ export class Gravestone extends SpriteClass {
         this.playerCollision && this.text.render();
     }
 
-    onPlayerCollisionEnter = () => {
-        !this.playerCollision && (this.playerCollision = true)
+    update(){
+        this.time++ % 5 == 0 && this.time < 120 && (this.x += (this.dx *= -1))
+
+        if(this.time == 121){
+            this.level.removeChild(this)
+
+            let r = []
+            this.name.split(' ').forEach(s => r.push(new Readable(this.x, this.y, s)))
+
+            r.forEach(l => {
+                this.level.addChild(r)
+                this.level.player.colliders.push(l)
+                l.spread(80)
+            })
+        }
     }
 
-    onPlayerCollisionExit = () => {
-        this.playerCollision && (this.playerCollision = false)
-
-    }
 }
