@@ -4,13 +4,14 @@ import { generateName } from "../utils/name-generator";
 export class Enemy extends SpriteClass {
 
     x = 150
-    y = 50
+    y = 100
     color = 'red'
     width = 20
     height = 40
     dx = 1
     dy = 0
     speed = 1
+    z = 2
 
     constructor(level) {
         super({level: level});
@@ -18,7 +19,10 @@ export class Enemy extends SpriteClass {
     }
 
     onType(row){
-        this.name === row && this.level.removeChild(this)
+        if(this.name === row){
+            this.level.removeChild(this)
+            this.level.nextLevel()
+        }
     }
 
     update() {

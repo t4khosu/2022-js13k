@@ -11,49 +11,36 @@ export class Level extends SpriteClass {
     color = '#8da683'
     difficulty = 1
     bulletPool
-    enemy
-    player
-    x = 0
-    y = 0
+    enemies
     width = 350
     height = 400
 
-    constructor(notebook) {
-        super();
+    constructor(scene) {
+        super({
+            scene: scene,
+            player: scene.player,
+            notebook: scene.notebook,
+        });
 
-        this.enemy = new Enemy(this)
-        notebook.enemies.push(this.enemy)
+        this.enemies = [new Enemy(this)]
+        this.notebook.enemies = this.enemies
+
+        let gravestones = []
+        this.enemies.forEach(e => gravestones.push(new Gravestone(e.x, e.y - 10, e.name, this)))
+        this.player.colliders = gravestones
 
         this.bulletPool = new BulletPool()
-        this.player = new Player()
 
-        let gravestone = new Gravestone(150, 120, this.enemy.name, this)
-
-        this.player.colliders = [gravestone]
-
-
-        this.children = [gravestone, this.enemy, this.bulletPool, this.player]
+        this.children = [...gravestones, this.player, ...this.enemies]
+        this.sort()
     }
 
-    matchPoolToEnemy() {
-        this.bulletPool.x = this.enemy.x + this.enemy.width / 2
-        this.bulletPool.y = this.enemy.y + this.enemy.height / 2
+    sort(){
+        this.children.sort((a, b) =>  a.z - b.z)
     }
 
-    update() {
-        // TODO enemy should handle bullets somehow
-        // we cant put the pool into the enemy GO because it restricts the area. Maybe this can be remedied somehow?
-        this.matchPoolToEnemy()
-        // this.bulletPool.get()
-
-        //check hits
-        // if (this.bulletPool.checkHit(this.player))
-        //     this.player.color = 'blue'
-
-        // if (collides(this.player, this.enemy))
-        //     this.player.color = 'blue'
-
-        super.update()
+    nextLevel(){
+        this.notebook.newLine()
+        this.scene.objects[0] = new Level(this.scene)
     }
-
 }

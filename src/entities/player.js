@@ -10,6 +10,7 @@ export class Player extends SpriteClass {
     color = '#000099'
     width = 10
     height = 10
+    z = 3
 
     channelTime = 1.5
     colliders = []

@@ -6,10 +6,12 @@ export class Readable extends SpriteClass {
     height = 7
     text = Text({ text: this.name, x: this.x + this.width / 2, y: this.y - 12, color: 'black', font: "14px Garamond", textAlign: 'center', anchor: { x: 0.5, y: 0.5 } })
     playerCollision = false
+    z = 1
 
 
     constructor(x, y, name, level) {
         super({ x: x, y: y, name: name, level: level})
+        this.splits = name.split(' ')
     }
 
     render(){
