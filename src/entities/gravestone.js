@@ -1,4 +1,5 @@
 import {Readable} from "./readable";
+import {randInt} from "kontra";
 
 export class Gravestone extends Readable {
     width = 15
@@ -20,15 +21,18 @@ export class Gravestone extends Readable {
         this.time++ % 5 == 0 && this.time < 120 && (this.x += (this.dx *= -1))
 
         if(this.time == 121){
-            this.level.removeChild(this)
+            let l = this.level
+            l.removeChild(this)
 
-            let r = []
-            this.name.split(' ').forEach(s => r.push(new Readable(this.x, this.y, s)))
+            let readables = []
+            let spin = randInt(0, 360)
 
-            r.forEach(l => {
-                this.level.addChild(r)
-                this.level.player.colliders.push(l)
-                l.spread(80)
+            this.name.split(' ').forEach((namePartial, i) => {
+                let r = new Readable(this.x, this.y, namePartial)
+                l.addChild(r)
+                l.player.colliders.push(r)
+                let angle = (spin + (360 / this.name.split(' ').length) * (i+1)) % 360
+                r.spread(80, angle)
             })
         }
     }

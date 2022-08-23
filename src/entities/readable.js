@@ -17,15 +17,13 @@ export class Readable extends SpriteClass {
         this.playerCollision && this.text.render();
     }
 
-    spread(dist){
-        let x2 = randInt(-dist, dist)
-        let y2 = randInt(-dist, dist)
+    spread(dist, angle){
+        let r = angle * (Math.PI / 180)
+        let x2 = Math.cos(r)
+        let y2 = Math.sin(r)
 
-
-        let s = dist / Math.sqrt(x2*x2+y2*y2)
-
-        this.x += x2 * s
-        this.y += y2 * s
+        this.x += x2 * dist
+        this.y += y2 * dist
 
         this.text.x = this.x
         this.text.y = this.y - 12
