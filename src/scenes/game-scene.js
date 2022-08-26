@@ -1,28 +1,45 @@
-import {SceneClass, Text } from "kontra";
+import {SceneClass, Sprite } from "kontra";
 import { Level } from "../entities/level";
-import {Notebook} from "../entities/notebook";
 import {Player} from "../entities/player";
 
 export class GameScene extends SceneClass {
-    constructor() {
+    transitionBlock = Sprite({width: 700, height: 600, color: '#2e0f09'})
+    transitioning = false
+    level = undefined
+
+    constructor(notebook) {
         super({
             id: 'game',
-            notebook: new Notebook(),
+            notebook: notebook,
             player: new Player(),
+            objects: [notebook],
         })
+    }
 
+    update() {
+        if(this.transitioning){
+            this.transitionBlock.y += 25;
+            if(this.transitionBlock.y == 0) this.transitionUpdate()
+            if(this.transitionBlock.y >= 400) this.transitioning = false
+        }
+        super.update()
+    }
+
+    startNewLevel(){
+        this.transitioning = true
+        this.transitionBlock.y = -600
+        this.transitionBlock.dy = 25
+    }
+
+    transitionUpdate(){
+        this.notebook.x = 400
+        this.notebook.newLine()
         this.level = new Level(this)
+        this.add(this.level)
+    }
 
-        this.objects = [
-            this.level,
-            this.notebook,
-            Text({
-                text: 'DeathNote',
-                x: 410,
-                y: 0,
-                color: 'lightgrey',
-                textAlign: 'left',
-                font: '46px Garamond'
-            })]
+    render(){
+        super.render()
+        this.transitioning && this.transitionBlock.render()
     }
 }

@@ -1,23 +1,37 @@
-import {onKey, SpriteClass, Text, emit} from "kontra";
+import {onKey, SpriteClass, Text} from "kontra";
+import {getManager} from "../scenes/scene-manager";
 
 const alphabet = ['space', ...[...Array(26).keys()].map(c => String.fromCharCode(c + 97))]
 
 export class Notebook extends SpriteClass {
-    x = 400
-    y = 60
-    width = 220
+    width = 230
     height = 330
     textPositions = [...Array(9).keys()].map(x => (x * 30) + 60)
     numPage = 0
 
-    pageText = Text({x: this.width / 2, y: 7, font: '14px Luminari'})
+    pageText = Text({x: this.width / 2, y: 7, font: '14px Luminari', color: '#880808'})
     currentWord
-    currentRow = -1
+    currentRow = 16
 
     enemies = []
 
-    constructor() {
+    title = Text({
+        text: 'Book of Death',
+        font: '32px Homemade Apple',
+        color: 'white',
+        x: 110,
+        y: -40,
+        anchor: {x: 0.5, y: 0.5},
+        dy: 0.5,
+        textAlign: 'center',
+    })
+
+    gameStarted = false
+
+    constructor(x, y) {
         super({
+            x: x,
+            y: y,
             render: () => {
                 let c = this.context
                 c.fillStyle = '#f2dcb1'
@@ -27,8 +41,26 @@ export class Notebook extends SpriteClass {
                 c.fillStyle = '#778377'
                 this.textPositions.forEach(t => c.fillRect(20, t, this.width - 40, 1))
                 this.pageText.render()
+                this.title.render()
             },
         });
+
+        let intro = [
+            "Ancient funerary texts, holding",
+            "names of the departed, now",
+            "burned to ashes. Back to life, the",
+            "dead roam these lands once more.",
+            "Holder of I, collect the names of",
+            "these dead and bring back order.",
+            "Seal a pact, give me your name."
+        ]
+
+        intro.forEach((text, i) => this.addChild(Text({
+            x: 20, y: this.textPositions[i] - 13,
+            color: '#880808',
+            font: '14px Luminari',
+            text: text,
+        })))
         this.newLine()
     }
 
@@ -36,10 +68,10 @@ export class Notebook extends SpriteClass {
         (this.currentRow = (this.currentRow + 1) % this.textPositions.length) == 0 && this.clear()
 
         this.currentWord = Text({
-            x: 20, y: this.textPositions[this.currentRow] - 16,
-            color: '#16264c',
-            font: '16px Luminari',
-            text: '• ',
+            x: 20, y: this.textPositions[this.currentRow] - 13,
+            color: '#880808',
+            font: '14px Luminari',
+            text: '› '
         })
 
         this.addChild(this.currentWord)
@@ -51,10 +83,24 @@ export class Notebook extends SpriteClass {
     }
 
     update(){
-        this.pageText.text = this.numPage + ''
+        this.pageText.text = this.numPage > 0 ? this.numPage + '' : ''
 
-        onKey('enter', () => this.newLine())
+        onKey('enter', () => {
+            if(getManager().activeScene.transitioning) {
+                return
+            }
+            if(!this.gameStarted){
+                this.gameStarted = true
+                getManager().setScene('game').startNewLevel()
+            }else{
+                this.newLine()
+            }
+        })
         onKey(alphabet, (e) => {
+            if(getManager().activeScene.transitioning) {
+                return
+            }
+
             this.currentWord.text += this.currentWord.text.length < 19 ? e.key : ''
             this.enemies.forEach(e => e.onType(this.currentWord.text.substring(2)))
         })
