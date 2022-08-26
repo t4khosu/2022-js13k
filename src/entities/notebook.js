@@ -1,7 +1,4 @@
 import {onKey, SpriteClass, Text} from "kontra";
-import {getManager} from "../scenes/scene-manager";
-
-const alphabet = ['space', ...[...Array(26).keys()].map(c => String.fromCharCode(c + 97))]
 
 export class Notebook extends SpriteClass {
     width = 230
@@ -25,8 +22,6 @@ export class Notebook extends SpriteClass {
         dy: 0.5,
         textAlign: 'center',
     })
-
-    gameStarted = false
 
     constructor(x, y) {
         super({
@@ -82,28 +77,17 @@ export class Notebook extends SpriteClass {
         this.children = []
     }
 
+    onEnter(){
+        this.newLine()
+    }
+
+    onLetter(key){
+        this.currentWord.text += this.currentWord.text.length < 19 ? key : ''
+        this.enemies.forEach(e => e.onType(this.currentWord.text.substring(2)))
+    }
+
     update(){
         this.pageText.text = this.numPage > 0 ? this.numPage + '' : ''
-
-        onKey('enter', () => {
-            if(getManager().activeScene.transitioning) {
-                return
-            }
-            if(!this.gameStarted){
-                this.gameStarted = true
-                getManager().setScene('game').startNewLevel()
-            }else{
-                this.newLine()
-            }
-        })
-        onKey(alphabet, (e) => {
-            if(getManager().activeScene.transitioning) {
-                return
-            }
-
-            this.currentWord.text += this.currentWord.text.length < 19 ? e.key : ''
-            this.enemies.forEach(e => e.onType(this.currentWord.text.substring(2)))
-        })
         super.update()
     }
 }

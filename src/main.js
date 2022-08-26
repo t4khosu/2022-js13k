@@ -8,10 +8,10 @@ const manager = new SceneManager()
 
 let loop = GameLoop({
     update: () => {
-        manager.activeScene.update()
+        manager.update()
     },
     render: () => {
-        manager.activeScene.render()
+        manager.render()
     }
 });
 
