@@ -43,4 +43,8 @@ export class Level extends SpriteClass {
         this.notebook.newLine()
         this.scene.objects[0] = new Level(this.scene)
     }
+
+    checkClear(){
+        // TODO
+    }
 }
