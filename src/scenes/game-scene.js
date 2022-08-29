@@ -27,6 +27,7 @@ export class GameScene extends SceneClass {
         this.nextLevel()
         this.player.health = 1
         this.notebook.name ??= this.notebook.children.at(-1).text.substring(2)
+        this.notebook.nameText.text = ""
         this.notebook.nextLine()
         this.notebook.x = 400
     }
