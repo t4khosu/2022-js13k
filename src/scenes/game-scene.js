@@ -1,4 +1,4 @@
-import {SceneClass } from "kontra";
+import {onKey, SceneClass} from "kontra";
 import { Level } from "../entities/level";
 import {Player} from "../entities/player";
 

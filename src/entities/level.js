@@ -40,7 +40,7 @@ export class Level extends SpriteClass {
     }
 
     nextLevel(){
-        this.notebook.newLine()
+        this.notebook.nextLine()
         this.scene.objects[0] = new Level(this.scene)
     }
 

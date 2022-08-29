@@ -1,5 +1,5 @@
 import { GameScene } from "./game-scene";
-import { MenuScene } from "./menu-scene";
+import { StartScene } from "./start-scene";
 import {Notebook} from "../entities/notebook";
 import {onKey, Sprite} from "kontra";
 
@@ -16,7 +16,7 @@ export class SceneManager {
         this.notebook = new Notebook(235, 70)
 
         this.scenes = {
-            menu: new MenuScene(this.notebook),
+            menu: new StartScene(this.notebook),
             game: new GameScene(this.notebook),
         }
 
@@ -28,15 +28,17 @@ export class SceneManager {
             if(this.transitioning) return
 
             if(this.activeScene.id == "menu"){
-                this.startTransition()
+                if(this.notebook.children.at(-1).text.length > 3){
+                    this.startTransition()
+                }
                 return
             }
-            this.notebook.onEnter()
+            this.notebook.nextLine()
         })
 
         onKey(alphabet, (e) => {
             if(this.transitioning) return
-            this.notebook.onLetter(e.key)
+            this.notebook.onWrite(e.key)
         })
     }
 
@@ -72,7 +74,9 @@ export class SceneManager {
     transitionUpdate(){
         if(this.activeScene.id == "menu"){
             this.setScene('game')
-            this.notebook.newLine()
+            this.notebook.name = this.notebook.children.at(-1).text.substring(2)
+            console.log(this.notebook.name)
+            this.notebook.nextLine()
             this.notebook.x = 400
         }
         this.activeScene.nextLevel()

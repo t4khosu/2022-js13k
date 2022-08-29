@@ -1,6 +1,6 @@
 import {SceneClass} from "kontra";
 
-export class MenuScene extends SceneClass {
+export class StartScene extends SceneClass {
     constructor(notebook) {
         super({
             id: 'menu',
