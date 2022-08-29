@@ -29,8 +29,5 @@ export class GameScene extends SceneClass {
         this.notebook.name ??= this.notebook.children.at(-1).text.substring(2)
         this.notebook.nextLine()
         this.notebook.x = 400
-
-        this.update()
-        this.render()
     }
 }

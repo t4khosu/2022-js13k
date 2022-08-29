@@ -6,7 +6,7 @@ const alphabet = ['space', ...[...Array(26).keys()].map(c => String.fromCharCode
 
 export class SceneManager {
     activeScene
-    transitionBlock = Sprite({width: 700, height: 600, color: '#2e0f09'})
+    transitionBlock = Sprite({width: 800, height: 600, color: '#2e0f09'})
     transitioning = false
     transitioningTo
 
@@ -67,6 +67,7 @@ export class SceneManager {
         this.activeScene = this.scenes[sceneKey]
         this.activeScene.init()
         this.activeScene.show()
+        this.activeScene.update()
         return this.activeScene
     }
 
@@ -77,7 +78,7 @@ export class SceneManager {
 
     update(){
         if(this.transitioning){
-            this.transitionBlock.y += 25;
+            this.transitionBlock.y += 20;
             if(this.transitionBlock.y == 0) this.setScene(this.transitioningTo)
             if(this.transitionBlock.y >= 400) this.transitioning = false
             return
@@ -89,7 +90,7 @@ export class SceneManager {
     transitionToScene(scene){
         this.transitioning = true
         this.transitioningTo = scene
-        this.transitionBlock.y = -600
+        this.transitionBlock.y = -700
         this.transitionBlock.dy = 25
     }
 }
