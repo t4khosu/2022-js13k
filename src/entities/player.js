@@ -1,4 +1,5 @@
-import {keyPressed, SpriteClass, collides } from "kontra";
+import {keyPressed, SpriteClass } from "kontra";
+import {SceneManager} from "../scenes/scene-manager";
 
 export class Player extends SpriteClass {
     x = 150
@@ -6,8 +7,12 @@ export class Player extends SpriteClass {
     width = 10
     height = 10
     z = 3
-    health = 10
+    health = 1
     invincibleTime = 0
+
+    constructor(scene) {
+        super({scene: scene});
+    }
 
     update() {
         if(keyPressed('arrowleft') && this.x > 0) this.x--
@@ -23,8 +28,10 @@ export class Player extends SpriteClass {
 
     hit(){
         this.health--
+
+        if(this.health == 0) SceneManager.instance.transitionToScene('gameOver')
+
         this.invincibleTime += 60
         this.color = 'green'
-        console.log(this.health)
     }
 }

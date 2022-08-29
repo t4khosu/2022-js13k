@@ -11,6 +11,17 @@ const coverText = [
     "name."
 ]
 
+const gameOverText = [
+    "You succumbed to the dead",
+    "and entered the realm of death.",
+    "",
+    "You successfully returned",
+    "XX corpses to my realm.",
+    "",
+    "Turn this page over to go back",
+    "and try once again."
+]
+
 export class Notebook extends SpriteClass {
     width = 230
     height = 330
@@ -33,7 +44,7 @@ export class Notebook extends SpriteClass {
         y: -50,
     })
 
-    name = ''
+    name = undefined
 
     nameText = Text({
         x: this.width / 2,
@@ -67,8 +78,15 @@ export class Notebook extends SpriteClass {
     }
 
     initCover(){
+        this.paginationText.text = ""
         coverText.forEach((ct, i) => this.addLineAt(i, ct))
         this.nextLine()
+    }
+
+    initGameOverText(){
+        this.paginationText.text = ""
+        this.children = []
+        gameOverText.forEach((ct, i) => this.addLineAt(i, ct))
     }
 
     addHit(health, maxHealth){

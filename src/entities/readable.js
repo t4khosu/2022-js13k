@@ -1,4 +1,4 @@
-import {randInt, SpriteClass, Text} from "kontra";
+import {SpriteClass, Text} from "kontra";
 
 export class Readable extends SpriteClass {
     color = '#444444'
