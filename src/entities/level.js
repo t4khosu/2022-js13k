@@ -9,11 +9,12 @@ import {Readable} from "./readable";
 export class Level extends SpriteClass {
 
     color = '#8da683'
-    difficulty = 1
     bulletPool
-    enemies
     width = 350
     height = 400
+
+    gravestones = []
+    enemies
 
     constructor(scene) {
         super({
@@ -24,15 +25,23 @@ export class Level extends SpriteClass {
 
         this.enemies = [new Enemy(this)]
         this.notebook.enemies = this.enemies
-
-        let gravestones = []
-        this.enemies.forEach(e => gravestones.push(new Gravestone(e.x, e.y - 10, e.name, this)))
-        this.player.colliders = gravestones
+        this.enemies.forEach(e => this.gravestones.push(new Gravestone(e.x, e.y - 10, e.name, this)))
 
         this.bulletPool = new BulletPool()
 
-        this.children = [...gravestones, this.player, ...this.enemies]
+        this.children = [...this.gravestones, this.player, ...this.enemies]
         this.sort()
+    }
+
+    update(){
+        this.gravestones.forEach(g => collides(this.player, g) ? g.onPlayerCollisionEnter() : g.onPlayerCollisionExit())
+        this.enemies.forEach(e => {
+            if(collides(this.player, e) && this.player.invincibleTime == 0){
+                this.player.hit()
+                this.notebook.addHit(this.player.health, 10)
+            }
+        })
+        super.update()
     }
 
     sort(){

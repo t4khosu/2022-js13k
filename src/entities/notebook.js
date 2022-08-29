@@ -36,11 +36,13 @@ export class Notebook extends SpriteClass {
     name = ''
 
     nameText = Text({
-        x: 20,
-        y: 5,
+        x: this.width / 2,
+        y: 18,
         color: '#880808',
         font: '16px Luminari',
-        text: ''
+        text: '',
+        textAlign: 'center',
+        anchor: {x: 0.5, y: 0.5}
     });
 
     constructor(x, y) {

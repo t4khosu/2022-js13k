@@ -29,8 +29,8 @@ export class Gravestone extends Readable {
             let spin = randInt(0, 360)
             this.splits.forEach((namePartial, i) => {
                 let r = new Readable(this.x, this.y, namePartial)
+                l.gravestones.push(r)
                 l.addChild(r)
-                l.player.colliders.push(r)
                 let angle = (spin + (360 / this.splits.length) * (i+1)) % 360
                 r.spread(80, angle)
             })

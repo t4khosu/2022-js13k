@@ -1,30 +1,30 @@
-import {getCanvas, keyPressed, SpriteClass, collides } from "kontra";
-
-export function getPlayer() {
-    return currentManager
-}
+import {keyPressed, SpriteClass, collides } from "kontra";
 
 export class Player extends SpriteClass {
     x = 150
     y = 300
-    color = '#000099'
     width = 10
     height = 10
     z = 3
+    health = 10
+    invincibleTime = 0
 
-    channelTime = 1.5
-    colliders = []
-
-    update(dt) {
-        super.update()
-        this.handleCharacterMovement(getCanvas())
-        this.colliders.forEach(c => collides(this, c) ? c.onPlayerCollisionEnter() : c.onPlayerCollisionExit())
+    update() {
+        if(keyPressed('arrowleft') && this.x > 0) this.x--
+        if(keyPressed('arrowright') && this.x + this.width < 350) this.x++
+        if(keyPressed('arrowup') && this.y > 0) this.y--
+        if(keyPressed('arrowdown') && this.y + this.height < 400) this.y++
+        if(this.invincibleTime > 0){
+            this.invincibleTime--
+        }else{
+            this.color = '#000099'
+        }
     }
 
-    handleCharacterMovement(canvas) {
-        keyPressed('arrowleft') && this.x > 0 && (this.x--)
-        keyPressed('arrowright') && this.x + this.width < canvas.width && (this.x++)
-        keyPressed('arrowup') && this.y > 0 && (this.y--)
-        keyPressed('arrowdown') && this.y + this.height < canvas.height && (this.y++)
+    hit(){
+        this.health--
+        this.invincibleTime += 60
+        this.color = 'green'
+        console.log(this.health)
     }
 }
