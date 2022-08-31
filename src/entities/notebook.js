@@ -116,7 +116,7 @@ export class Notebook extends SpriteClass {
 
     onWrite(key){
         let current = this.children.at(-1)
-        current.text += current.text.length < 19 ? key : ''
+        current.text += current.text.length < 30 ? key : ''
         this.enemies.forEach(e => e.onType(current.text.substring(2)))
     }
 }

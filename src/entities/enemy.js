@@ -5,7 +5,6 @@ export class Enemy extends SpriteClass {
 
     x = 150
     y = 100
-    color = 'red'
     width = 30
     height = 40
     dx = 1

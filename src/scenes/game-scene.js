@@ -1,10 +1,9 @@
-import {onKey, SceneClass} from "kontra";
+import {SceneClass} from "kontra";
 import { Level } from "../entities/level";
 import {Player} from "../entities/player";
 
 export class GameScene extends SceneClass {
     level = undefined
-    player
 
     constructor(scene) {
         super({
@@ -12,9 +11,8 @@ export class GameScene extends SceneClass {
             scene: scene,
             notebook: scene.notebook,
             objects: [scene.notebook],
+            player: new Player()
         })
-
-        this.player = new Player(scene)
     }
 
     nextLevel(){

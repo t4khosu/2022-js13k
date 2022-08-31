@@ -10,8 +10,8 @@ export class Player extends SpriteClass {
     health
     invincibleTime
 
-    constructor(scene) {
-        super({scene: scene})
+    constructor() {
+        super()
         this.reset()
     }
 
