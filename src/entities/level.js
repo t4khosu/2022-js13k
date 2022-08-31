@@ -50,6 +50,8 @@ export class Level extends SpriteClass {
 
     checkClear(){
         if(this.enemies.length == 0){
+            this.children = []
+            this.render()
             SceneManager.instance.transitionToScene("game")
         }
     }
