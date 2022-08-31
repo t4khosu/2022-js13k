@@ -7,7 +7,6 @@ import {generateName} from "../utils/name-generator";
 import {Readable} from "./readable";
 
 export class Level extends SpriteClass {
-
     color = '#8da683'
     bulletPool
     width = 350
@@ -38,7 +37,7 @@ export class Level extends SpriteClass {
         this.enemies.forEach(e => {
             if(collides(this.player, e) && this.player.invincibleTime == 0){
                 this.player.hit()
-                this.notebook.addHit(this.player.health, 10)
+                this.notebook.addHit(this.player.health, this.player.maxHealth)
             }
         })
         super.update()

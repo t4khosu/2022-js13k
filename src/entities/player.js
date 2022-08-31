@@ -2,19 +2,20 @@ import {keyPressed, SpriteClass } from "kontra";
 import {SceneManager} from "../scenes/scene-manager";
 
 export class Player extends SpriteClass {
-    x = 150
-    y = 300
     width = 10
     height = 10
     z = 3
-    health = 1
-    invincibleTime = 0
+    maxHealth = 10
+
+    health
+    invincibleTime
 
     constructor(scene) {
-        super({scene: scene});
+        super({scene: scene})
+        this.reset()
     }
 
-    update() {
+    update(){
         if(keyPressed('arrowleft') && this.x > 0) this.x--
         if(keyPressed('arrowright') && this.x + this.width < 350) this.x++
         if(keyPressed('arrowup') && this.y > 0) this.y--
@@ -24,6 +25,13 @@ export class Player extends SpriteClass {
         }else{
             this.color = '#000099'
         }
+    }
+
+    reset(){
+        this.invincibleTime = 0
+        this.health = this.maxHealth
+        this.x = 165
+        this.y = 350
     }
 
     hit(){

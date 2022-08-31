@@ -25,7 +25,7 @@ export class GameScene extends SceneClass {
 
     init(){
         this.nextLevel()
-        this.player.health = 1
+        this.player.reset()
         this.notebook.name ??= this.notebook.children.at(-1).text.substring(2)
         this.notebook.nameText.text = ""
         this.notebook.nextLine()
