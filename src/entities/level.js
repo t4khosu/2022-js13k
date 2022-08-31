@@ -5,6 +5,7 @@ import {Player} from "./player";
 import {Gravestone} from "./gravestone";
 import {generateName} from "../utils/name-generator";
 import {Readable} from "./readable";
+import {SceneManager} from "../scenes/scene-manager";
 
 export class Level extends SpriteClass {
     color = '#8da683'
@@ -47,12 +48,9 @@ export class Level extends SpriteClass {
         this.children.sort((a, b) =>  a.z - b.z)
     }
 
-    nextLevel(){
-        this.notebook.nextLine()
-        this.scene.objects[0] = new Level(this.scene)
-    }
-
     checkClear(){
-        // TODO
+        if(this.enemies.length == 0){
+            SceneManager.instance.transitionToScene("game")
+        }
     }
 }

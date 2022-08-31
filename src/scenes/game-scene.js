@@ -20,6 +20,7 @@ export class GameScene extends SceneClass {
     nextLevel(){
         if(this.level) this.remove(this.level)
         this.level = new Level(this)
+        this.player.reset()
         this.add(this.level)
     }
 
