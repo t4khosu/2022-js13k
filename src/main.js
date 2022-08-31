@@ -1,4 +1,4 @@
-import {init, GameLoop, initKeys, GameObjectClass, SpriteClass} from 'kontra';
+import {init, GameLoop, initKeys} from 'kontra';
 import {SceneManager} from "./scenes/scene-manager";
 
 init();
