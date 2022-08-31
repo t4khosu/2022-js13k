@@ -5,12 +5,11 @@ import {Player} from "../entities/player";
 export class GameScene extends SceneClass {
     level = undefined
 
-    constructor(scene) {
+    constructor(notebook) {
         super({
             id: 'game',
-            scene: scene,
-            notebook: scene.notebook,
-            objects: [scene.notebook],
+            notebook: notebook,
+            objects: [notebook],
             player: new Player()
         })
     }

@@ -23,7 +23,7 @@ export class SceneManager {
                 objects: [this.notebook],
                 init: () => {}
             }),
-            game: new GameScene(this),
+            game: new GameScene(this.notebook),
             gameOver: Scene({
                 id: 'gameOver',
                 objects: [this.notebook],
