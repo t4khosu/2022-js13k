@@ -12,6 +12,7 @@ export class Level extends SpriteClass {
 
     gravestones = []
     enemies
+    name
 
     text = Text({x: 8, y: 8})
 
@@ -39,7 +40,7 @@ export class Level extends SpriteClass {
         this.enemies.forEach(e => {
             if(collides(this.player, e) && this.player.invincibleTime == 0){
                 this.player.hit()
-                this.notebook.addHit(this.player.health, this.player.maxHealth)
+                this.notebook.updatePlayerName(this.player)
             }
         })
         super.update()

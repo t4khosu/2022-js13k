@@ -27,7 +27,7 @@ class GameScene extends SceneClass{
     transition(){
         this.nextLevel()
         this.player.reset()
-        this.notebook.name ??= this.notebook.children.at(-1).text.substring(2)
+        this.player.name ??= this.notebook.children.at(-1).text.substring(2)
         this.notebook.playerName.text = ""
         this.notebook.lineBreak()
         this.notebook.x = 400
@@ -54,7 +54,6 @@ export class Game {
             transition(){this.notebook.initGameOver()}
         })
     }
-
 
     constructor() {
         this.transitionToScene("menu")
@@ -83,10 +82,27 @@ export class Game {
         })
     }
 
+    /**
+     * Change scene to other scene defined in `this.scenes`
+     * @param sceneKey {string}
+     * @returns {Scene}
+     */
     setScene(sceneKey) {
         this.activeScene = this.scenes[sceneKey]
         this.activeScene.transition()
+        this.activeScene.update()
         return this.activeScene
+    }
+
+    /**
+     * Run a transition (set its flag = true) to change the scene.
+     * @param sceneName {string}
+     */
+    transitionToScene(sceneName){
+        this.transitioning = true
+        this.transitioningTo = sceneName
+        this.transitionBlock.y = -700
+        this.transitionBlock.dy = 20
     }
 
     render(){
@@ -103,12 +119,5 @@ export class Game {
         }
 
         this.activeScene?.update()
-    }
-
-    transitionToScene(sceneName){
-        this.transitioning = true
-        this.transitioningTo = sceneName
-        this.transitionBlock.y = -700
-        this.transitionBlock.dy = 20
     }
 }
