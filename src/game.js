@@ -9,26 +9,28 @@ class GameScene extends SceneClass{
     level
     score
 
-    constructor(notebook) {
+    constructor(game) {
         super({
-            notebook: notebook,
-            objects: [notebook],
-            player: new Player()
+            notebook: game.notebook,
+            objects: [game.notebook],
+            player: game.player
         })
+        this.player.reset()
     }
 
     nextLevel(){
-        if(this.level) this.remove(this.level)
         this.level = new Level(this)
-        this.player.reset()
+        this.player.x = 165
+        this.player.y = 350
         this.add(this.level)
     }
 
+    /**
+     * Every Scene requires this function. During a scene transition there is a short moment the complete scene is
+     * hidden. During this moment the transition function is called to initialise the newly loaded scene.
+     */
     transition(){
         this.nextLevel()
-        this.player.reset()
-        this.player.name ??= this.notebook.children.at(-1).text.substring(2)
-        this.notebook.playerName.text = ""
         this.notebook.lineBreak()
         this.notebook.x = 400
     }
@@ -38,20 +40,24 @@ export class Game {
     activeScene
 
     transitionBlock = Sprite({width: 800, height: 600, color: '#2e0f09'})
-    transitioning = false
-    transitioningTo = "menu"
+    transitioning
+    transitioningTo
 
     notebook = new Notebook(235, 70)
+    player = new Player(this)
+
+    score = 0
 
     scenes = {
         menu: Scene({
             objects: [this.notebook],
             transition(){}
         }),
-        game: new GameScene(this.notebook),
+        game: new GameScene(this),
         gameOver: Scene({
             objects: [this.notebook],
-            transition(){this.notebook.initGameOver()}
+            game: this,
+            transition(){this.game.notebook.initGameOver(this.game.score)}
         })
     }
 
@@ -61,20 +67,25 @@ export class Game {
         onKey('enter', () => {
             if(this.transitioning) return
 
+            // current scene = this.transitionTo
             switch(this.transitioningTo){
                 case "menu":
                     if(this.notebook.children.at(-1).text.length > 3){
+                        this.player.name ??= this.notebook.currentText().text.substring(2)
                         this.transitionToScene("game")
                     }
                     return
+
                 case "gameOver":
+                    this.scenes["game"] = new GameScene(this)
+                    this.notebook.updatePlayerName(this.player)
+                    this.score = 0
                     this.transitionToScene("game")
                     return
             }
 
             this.notebook.lineBreak()
         })
-
 
         onKey(alphabet, (e) => {
             if(this.transitioning) return

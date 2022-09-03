@@ -4,15 +4,14 @@ export class Player extends SpriteClass {
     width = 10
     height = 10
     z = 3
-    maxHealth = 10
+    maxHealth = 1
 
     health
     invincibleTime
     name
 
-    constructor() {
-        super()
-        this.reset()
+    constructor(game) {
+        super({game: game})
     }
 
     update(){
@@ -27,18 +26,19 @@ export class Player extends SpriteClass {
         }
     }
 
+    /**
+     * Reset initial player state
+     */
     reset(){
         this.invincibleTime = 0
         this.health = this.maxHealth
-        this.x = 165
-        this.y = 350
     }
 
+    /**
+     * Call on enemy or bullet collision
+     */
     hit(){
-        this.health--
-
-        if(this.health == 0) SceneManager.instance.transitionToScene('gameOver')
-
+        if(--this.health == 0) this.game.transitionToScene('gameOver')
         this.invincibleTime += 60
         this.color = 'green'
     }

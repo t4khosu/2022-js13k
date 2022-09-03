@@ -3,7 +3,6 @@ import {Enemy} from "./enemy";
 import {BulletPool} from "./bullet-pool";
 import {Gravestone} from "./gravestone";
 
-let score = -1
 export class Level extends SpriteClass {
     color = '#8da683'
     bulletPool
@@ -13,8 +12,6 @@ export class Level extends SpriteClass {
     gravestones = []
     enemies
     name
-
-    text = Text({x: 8, y: 8})
 
     constructor(scene) {
         super({
@@ -31,8 +28,6 @@ export class Level extends SpriteClass {
 
         this.children = [...this.gravestones, this.player, ...this.enemies]
         this.sort()
-
-        this.increaseScore()
     }
 
     update(){
@@ -46,11 +41,6 @@ export class Level extends SpriteClass {
         super.update()
     }
 
-    render(){
-        super.render()
-        this.text.render()
-    }
-
     sort(){
         this.children.sort((a, b) =>  a.z - b.z)
     }
@@ -61,9 +51,5 @@ export class Level extends SpriteClass {
             this.render()
             SceneManager.instance.transitionToScene("game")
         }
-    }
-
-    increaseScore(){
-        this.text.text = `Souls: ${++score}`
     }
 }

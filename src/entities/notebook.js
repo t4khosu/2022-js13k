@@ -72,23 +72,23 @@ export class Notebook extends SpriteClass {
     /**
      * Create final page for the game over scene
      */
-    initGameOver(){
+    initGameOver(score){
         this.numPage = 0
         this.currentLine = this.numLines - 1
         this.paginationText.text = ""
         this.x = 235
-        this.children = []
+        this.children = [];
 
         [
             "You succumbed to the dead",
             "and entered the realm of death.",
             "",
             "You successfully returned",
-            "XX corpses to my realm.",
+            `${score} corpses to my realm.`,
             "",
             "Turn this page over to go back",
             "and try once again."
-        ].forEach((ct, i) => this.addLineAt(i, ct))
+        ].forEach((line, pos) => this.insertLineAt(pos, line))
     }
 
     /**
