@@ -1,5 +1,4 @@
 import {keyPressed, SpriteClass } from "kontra";
-import {SceneManager} from "../scenes/scene-manager";
 
 export class Player extends SpriteClass {
     width = 10
@@ -9,6 +8,7 @@ export class Player extends SpriteClass {
 
     health
     invincibleTime
+    name
 
     constructor() {
         super()

@@ -1,52 +1,27 @@
 import {SpriteClass, Text} from "kontra";
 
-const coverText = [
-    "Ancient funerary texts, holding",
-    "names of the departed, now",
-    "burned to ashes. Back to life, the",
-    "dead roam these lands once more.",
-    "Holder of I, collect the names of",
-    "these dead and bring back order.",
-    "Seal a pact, give me your first",
-    "name."
-]
-
-const gameOverText = [
-    "You succumbed to the dead",
-    "and entered the realm of death.",
-    "",
-    "You successfully returned",
-    "XX corpses to my realm.",
-    "",
-    "Turn this page over to go back",
-    "and try once again."
-]
-
 export class Notebook extends SpriteClass {
     width = 230
     height = 330
     numLines = 9
     numPage = 0
-    currentLine = 16
+    currentEnemies = []
 
-    textPositions = [...Array(this.numLines).keys()].map(x => (x * 30) + 60)
+    title = Text({
+        text: 'Book of Death', font: '32px Luminari', color: 'white', x: 20, y: -50,
+    })
+
     paginationText = Text({
         x: 8, y: 8, font: '14px Luminari', color: '#880808'
     })
 
-    enemies = []
+    currentLine = this.numLines - 2
 
-    title = Text({
-        text: 'Book of Death',
-        font: '32px Homemade Apple',
-        color: 'white',
-        x: 20,
-        y: -50,
-    })
+    textPositions = [
+        ...Array(this.numLines).keys()
+    ].map(x => (x * 30) + 60)
 
-    name = undefined
-
-    nameText = Text({
+    playerName = Text({
         x: this.width / 2,
         y: 18,
         color: '#880808',
@@ -71,52 +46,103 @@ export class Notebook extends SpriteClass {
                 this.textPositions.forEach(tp => c.fillRect(20, tp, 190, 1))
                 this.paginationText.render()
                 this.title.render()
-                this.nameText.render()
+                this.playerName.render()
             }
         });
         this.initCover()
     }
 
+    /**
+     * Create cover text for when the game starts
+     */
     initCover(){
+        [
+            "Ancient funerary texts, holding",
+            "names of the departed, now",
+            "burned to ashes. Back to life, the",
+            "dead roam these lands once more.",
+            "Holder of I, collect the names of",
+            "these dead and bring back order.",
+            "Seal a pact, give me your first",
+            "name."
+        ].forEach((line, pos) => this.insertLineAt(pos, line))
+        this.lineBreak()
+    }
+
+    /**
+     * Create final page for the game over scene
+     */
+    initGameOver(){
+        this.numPage = 0
+        this.currentLine = this.numLines - 1
         this.paginationText.text = ""
-        coverText.forEach((ct, i) => this.addLineAt(i, ct))
-        this.nextLine()
-    }
-
-    initGameOverText(){
-        this.paginationText.text = ""
+        this.x = 235
         this.children = []
-        gameOverText.forEach((ct, i) => this.addLineAt(i, ct))
+
+        [
+            "You succumbed to the dead",
+            "and entered the realm of death.",
+            "",
+            "You successfully returned",
+            "XX corpses to my realm.",
+            "",
+            "Turn this page over to go back",
+            "and try once again."
+        ].forEach((ct, i) => this.addLineAt(i, ct))
     }
 
-    addHit(health, maxHealth){
-        this.nameText.text = this.name.substring(0,Math.floor(((maxHealth - health) / maxHealth) * this.name.length));
+    /**
+     * Write name of player in the book of death depending on the player's health
+     * @param player {Player}
+     */
+    updatePlayerName(player){
+        let percentage = 1 - (player.health / player.maxHealth)
+        this.playerName.text = player.name.substring(0,Math.floor(percentage * player.name.length));
     }
 
-    nextLine(){
-        (this.currentLine = (this.currentLine + 1) % this.numLines) == 0 && this.nextPage()
-        this.paginationText.text = this.numPage > 0 ? this.numPage + '' : ''
-        this.addLineAt(this.currentLine, '› ')
+    /**
+     * Go to the next line if any space left. Otherwise, go to next page
+     */
+    lineBreak(){
+        if(++this.currentLine % this.numLines == 0) {
+            this.currentLine = 0
+            this.numPage += 1
+            this.paginationText.text = this.numPage + ''
+            this.children = []
+        }
+        this.insertLineAt(this.currentLine, '› ')
     }
 
-    nextPage(){
-        this.numPage += 1
-        this.children = []
+    /**
+     * Check for key presses to write something & check if the current text matches any enemy's name
+     * @param {string} key
+     */
+    type(key){
+        let currentLine = this.currentText()
+        currentLine.text += currentLine.text.length < 30 ? key : ''
+        this.currentEnemies.forEach(e => e.onType(currentLine.text.substring(2)))
     }
 
-    addLineAt(pos, text){
+    /**
+     * Insert a new text object at a specific notebook line.
+     * @param pos {int} - Visual line position on the notebook
+     * @param initialText {string} - Prefix
+     */
+    insertLineAt(pos, initialText){
         this.addChild(Text({
             x: 20,
             y: this.textPositions[pos] - 13,
             color: '#880808',
             font: '14px Luminari',
-            text: text
+            text: initialText
         }))
     }
 
-    onWrite(key){
-        let current = this.children.at(-1)
-        current.text += current.text.length < 30 ? key : ''
-        this.enemies.forEach(e => e.onType(current.text.substring(2)))
+    /**
+     * Return the last child which in this case defaults to the last Text object
+     * @returns {kontra.GameObject}
+     */
+    currentText(){
+        return this.children.at(-1)
     }
 }

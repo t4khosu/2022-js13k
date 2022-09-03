@@ -1,18 +1,16 @@
-import {init, GameLoop, initKeys} from 'kontra';
-import {SceneManager} from "./scenes/scene-manager";
+import {init, GameLoop, initKeys} from 'kontra'
+import {Game} from "./game"
 
-init();
-initKeys();
+init()
+initKeys()
 
-const manager = new SceneManager()
+const game = new Game()
 
-let loop = GameLoop({
+GameLoop({
     update: () => {
-        manager.update()
+        game.update()
     },
     render: () => {
-        manager.render()
+        game.render()
     }
-});
-
-loop.start();
+}).start()

@@ -37,6 +37,7 @@ export class Enemy extends SpriteClass {
         if(this.name === row){
             this.level.removeChild(this)
             this.level.enemies = this.level.enemies.filter(e => e !== this)
+            this.level.score++;
             this.level.checkClear()
         }
     }

@@ -1,12 +1,9 @@
-import {collides, getCanvas, SpriteClass, randInt} from "kontra";
+import {collides, SpriteClass, Text} from "kontra";
 import {Enemy} from "./enemy";
 import {BulletPool} from "./bullet-pool";
-import {Player} from "./player";
 import {Gravestone} from "./gravestone";
-import {generateName} from "../utils/name-generator";
-import {Readable} from "./readable";
-import {SceneManager} from "../scenes/scene-manager";
 
+let score = -1
 export class Level extends SpriteClass {
     color = '#8da683'
     bulletPool
@@ -15,6 +12,8 @@ export class Level extends SpriteClass {
 
     gravestones = []
     enemies
+
+    text = Text({x: 8, y: 8})
 
     constructor(scene) {
         super({
@@ -31,6 +30,8 @@ export class Level extends SpriteClass {
 
         this.children = [...this.gravestones, this.player, ...this.enemies]
         this.sort()
+
+        this.increaseScore()
     }
 
     update(){
@@ -44,6 +45,11 @@ export class Level extends SpriteClass {
         super.update()
     }
 
+    render(){
+        super.render()
+        this.text.render()
+    }
+
     sort(){
         this.children.sort((a, b) =>  a.z - b.z)
     }
@@ -54,5 +60,9 @@ export class Level extends SpriteClass {
             this.render()
             SceneManager.instance.transitionToScene("game")
         }
+    }
+
+    increaseScore(){
+        this.text.text = `Souls: ${++score}`
     }
 }
