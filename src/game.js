@@ -7,7 +7,6 @@ const alphabet = ['space', ...[...Array(26).keys()].map(c => String.fromCharCode
 
 class GameScene extends SceneClass{
     level
-    score
 
     constructor(game) {
         super({
