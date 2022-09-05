@@ -4,7 +4,7 @@ export class Player extends SpriteClass {
     width = 10
     height = 10
     z = 3
-    maxHealth = 1
+    maxHealth = 10
 
     health
     invincibleTime

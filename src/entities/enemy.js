@@ -1,5 +1,5 @@
 import { SpriteClass } from "kontra";
-import { generateName } from "../utils/name-generator";
+import {generateNameByDifficulty} from "../utils/name-generator";
 import {Game} from "../game";
 
 export class Enemy extends SpriteClass {
@@ -39,7 +39,7 @@ export class Enemy extends SpriteClass {
                 ctx.fill();
             }
         });
-        this.name = generateName()
+        this.name = generateNameByDifficulty(level.difficulty)
     }
 
     transparency(){

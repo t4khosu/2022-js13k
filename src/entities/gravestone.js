@@ -32,7 +32,7 @@ export class Gravestone extends Readable {
                 l.gravestones.push(r)
                 l.addChild(r)
                 let angle = (spin + (360 / this.splits.length) * (i+1)) % 360
-                r.spread(80, angle)
+                r.spread(randInt(20, 70), angle)
             })
             l.sort()
         }
