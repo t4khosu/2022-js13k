@@ -10,6 +10,7 @@ class GameScene extends SceneClass{
 
     constructor(game) {
         super({
+            game: game,
             notebook: game.notebook,
             objects: [game.notebook],
             player: game.player
@@ -60,6 +61,8 @@ export class Game {
         })
     }
 
+    static instance
+
     constructor() {
         this.transitionToScene("menu")
 
@@ -90,6 +93,8 @@ export class Game {
             if(this.transitioning) return
             this.notebook.type(e.key)
         })
+
+        Game.instance = this
     }
 
     /**

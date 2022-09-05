@@ -1,4 +1,5 @@
 import {SpriteClass, Text} from "kontra";
+import {Game} from "../game";
 
 export class Notebook extends SpriteClass {
     width = 230
@@ -84,7 +85,7 @@ export class Notebook extends SpriteClass {
             "and entered the realm of death.",
             "",
             "You successfully returned",
-            `${score} corpses to my realm.`,
+            `${Game.instance.score} corpses to my realm.`,
             "",
             "Turn this page over to go back",
             "and try once again."

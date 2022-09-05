@@ -1,5 +1,6 @@
 import { SpriteClass } from "kontra";
 import { generateName } from "../utils/name-generator";
+import {Game} from "../game";
 
 export class Enemy extends SpriteClass {
     x = 150
@@ -31,7 +32,6 @@ export class Enemy extends SpriteClass {
                 ctx.stroke()
                 ctx.fill()
 
-
                 ctx.beginPath()
                 ctx.fillStyle = `rgba(50, 50, 50, ${this.transparency()})`;
                 ctx.ellipse(9, 20, 4, 7, -0.1, 0, 2 * Math.PI);
@@ -51,7 +51,7 @@ export class Enemy extends SpriteClass {
 
         this.level.removeChild(this)
         this.level.enemies = this.level.enemies.filter(e => e !== this)
-        this.level.score++;
+        Game.instance.score++;
         this.level.checkClear()
     }
 

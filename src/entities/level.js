@@ -13,6 +13,8 @@ export class Level extends SpriteClass {
     enemies
     name
 
+    static score = 0
+
     constructor(scene) {
         super({
             scene: scene,
@@ -21,8 +23,8 @@ export class Level extends SpriteClass {
         });
 
         this.enemies = [new Enemy(this)]
-        this.notebook.enemies = this.enemies
-        this.enemies.forEach(e => this.gravestones.push(new Gravestone(e.x, e.y - 10, e.name, this)))
+        this.notebook.currentEnemies = this.enemies
+        this.enemies.forEach(e => this.gravestones.push(new Gravestone(e.x + 8, e.y + 10, e.name, this)))
 
         this.bulletPool = new BulletPool()
 
@@ -49,7 +51,7 @@ export class Level extends SpriteClass {
         if(this.enemies.length == 0){
             this.children = []
             this.render()
-            SceneManager.instance.transitionToScene("game")
+            this.scene.game.transitionToScene("game")
         }
     }
 }
