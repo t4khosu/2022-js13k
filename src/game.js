@@ -2,7 +2,7 @@ import {Notebook} from "./entities/notebook";
 import {Sprite, Scene, SceneClass, onKey} from "kontra";
 import {Player} from "./entities/player";
 import {Level} from "./entities/level";
-
+import {musicPlayer} from "./utils/cplayer";
 const alphabet = ['space', ...[...Array(26).keys()].map(c => String.fromCharCode(c + 97))]
 
 class GameScene extends SceneClass{
@@ -75,6 +75,7 @@ export class Game {
                 case "menu":
                     if(this.notebook.children.at(-1).text.length > 3){
                         this.player.name ??= this.notebook.currentText().text.substring(2)
+                        musicPlayer.sounds['bgmusic'].play()
                         this.transitionToScene("game")
                     }
                     return
