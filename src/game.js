@@ -15,6 +15,7 @@ class GameScene extends SceneClass{
             objects: [game.notebook],
             player: game.player
         })
+        Level.difficulty = 1
         this.player.reset()
     }
 

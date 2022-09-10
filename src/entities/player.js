@@ -33,7 +33,7 @@ export class Player extends SpriteClass {
         ctx.fillStyle = this.color
         ctx.fillRect(this.x-4, this.y-4, 10, 10)
 
-        ctx.fillStyle = '#ffc3a0'
+        ctx.fillStyle = '#99c3a0'
         ctx.fillRect(this.x, this.y, 2, 2)
     }
 
