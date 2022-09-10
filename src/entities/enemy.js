@@ -1,10 +1,10 @@
-import { SpriteClass } from "kontra";
+import {randInt, SpriteClass} from "kontra";
 import {generateNameByDifficulty} from "../utils/name-generator";
 import {Game} from "../game";
 
 export class Enemy extends SpriteClass {
-    x = 150
-    y = 100
+    x = randInt(100, 200)
+    y = randInt(100, 150)
     width = 30
     height = 40
     dx = 1
@@ -16,6 +16,7 @@ export class Enemy extends SpriteClass {
     constructor(level) {
         super({
             level: level,
+            name: generateNameByDifficulty(level.difficulty),
             render: () => {
                 let ctx = this.context
                 ctx.fillStyle = `rgba(255, 0, 0, ${this.transparency()})`
@@ -39,7 +40,6 @@ export class Enemy extends SpriteClass {
                 ctx.fill();
             }
         });
-        this.name = generateNameByDifficulty(level.difficulty)
     }
 
     transparency(){
@@ -56,8 +56,7 @@ export class Enemy extends SpriteClass {
     }
 
     update() {
-        this.time++
-        if(this.time < 60) return
+        if(++this.time < 60) return
         if(this.x <= 20 || this.x >= 250) this.dx *= -1
         this.x += this.dx * this.speed
     }

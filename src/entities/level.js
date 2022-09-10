@@ -22,11 +22,9 @@ export class Level extends SpriteClass {
             scene: scene,
             player: scene.player,
             notebook: scene.notebook,
-            difficulty: Level.difficulty,
+            difficulty: Level.difficulty++,
         });
-        Level.difficulty++
 
-        console.log(this.difficulty)
         this.enemies = [new Enemy(this)]
         this.notebook.currentEnemies = this.enemies
         this.enemies.forEach(e => this.gravestones.push(new Gravestone(e.x + 8, e.y + 10, e.name, this)))
