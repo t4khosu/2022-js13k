@@ -16,6 +16,7 @@ export class Enemy extends SpriteClass {
     r = randInt(50, 255)
     g = randInt(50, 255)
     b = randInt(50, 255)
+    rot = randInt(-5, 5) / 10
 
     constructor(level) {
         super({
@@ -39,8 +40,8 @@ export class Enemy extends SpriteClass {
 
                 ctx.beginPath()
                 ctx.fillStyle = `rgba(50, 50, 50, ${this.transparency()})`;
-                ctx.ellipse(9, 20, 4, 7, -0.1, 0, 2 * Math.PI);
-                ctx.ellipse(21, 20, 4, 7, 0.1, 0, 2 * Math.PI);
+                ctx.ellipse(9, 20, 4, 7, -this.rot, 0, 2 * Math.PI);
+                ctx.ellipse(21, 20, 4, 7, this.rot, 0, 2 * Math.PI);
                 ctx.fill();
             }
         });
