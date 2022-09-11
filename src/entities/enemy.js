@@ -1,4 +1,4 @@
-import {on, Pool, randInt, Sprite, SpriteClass} from "kontra";
+import {GameObjectClass, on, Pool, randInt, Sprite, SpriteClass} from "kontra";
 import {generateName} from "../utils/name-generator";
 import {BulletPool} from "./bullet-pool";
 
@@ -27,6 +27,27 @@ class CircleWalk extends RandomWalk {
 
 }
 
+class EnemyHandler extends GameObjectClass {
+
+    enemy
+    pools = []
+    enemyTick = 0
+    difficulty
+
+    constructor(properties, difficulty) {
+        super(properties);
+        this.difficulty = difficulty
+        this.enemy = new Enemy()
+
+    }
+
+    update(dt) {
+
+    }
+
+
+}
+
 
 export class Enemy extends SpriteClass {
 
@@ -34,7 +55,6 @@ export class Enemy extends SpriteClass {
     width = 20
     height = 40
     anchor = {x: 0.5, y: 0.5}
-
 
     constructor(properties) {
         super(properties);

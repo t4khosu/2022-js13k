@@ -1,7 +1,7 @@
 import {collides, getCanvas, SpriteClass} from "kontra";
 import {Enemy} from "./enemy";
-import {BulletPool} from "./bullet-pool";
 import {Player} from "./player";
+import {getPatterns} from "./bullet-pattern/pattern";
 
 export class Level extends SpriteClass {
 
@@ -23,8 +23,8 @@ export class Level extends SpriteClass {
         this.height = canvas.height - 2 * padding
 
         this.enemy = new Enemy()
-
-        this.bulletPool = new BulletPool()
+        const patterns = getPatterns(1)
+        this.bulletPool = patterns[0]
         this.player = new Player()
 
         this.children = [this.enemy, this.bulletPool, this.player]

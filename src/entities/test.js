@@ -1,14 +1,12 @@
-import {collides, getCanvas, keyPressed, SpriteClass} from "kontra";
+import {collides, getCanvas, keyPressed, offKey, SpriteClass} from "kontra";
 import {Enemy} from "./enemy";
-import {BulletPool} from "./bullet-pool";
-import {Player} from "./player";
-import {BulletGenerator, BulletGeneratorConfig} from "../utils/bullet-generator";
+import {BeamPool} from "./bullet-pool";
 
 export class Test extends SpriteClass {
 
     color = 'green'
     difficulty = 1
-    bulletPools
+    pool
     enemy
 
     constructor() {
@@ -24,18 +22,29 @@ export class Test extends SpriteClass {
 
         this.enemy = new Enemy({x: this.width / 2, y: this.height / 2})
 
-        const config = new BulletGeneratorConfig()
-        config.beams = 3
-        config.beamSpread = 120
-        config.spinRate = 4
-        // config.inverseSpin = 90
-        config.originX = this.width / 2
-        config.originY = this.height / 2
-        config.fireRate = 4
-        config.bulletSpeed = Math.random()
-        this.generator = new BulletGenerator(config)
-        this.bulletPools = this.generator.generate()
-        this.children = [this.enemy, ...this.bulletPools]
+        // const config = new BulletGeneratorConfig()
+        // config.beams = 3
+        // config.beamSpread = 120
+        // config.spinRate = 4
+        // // config.inverseSpin = 90
+        // config.originX = this.width / 2
+        // config.originY = this.height / 2
+        // config.fireRate = 4
+        // config.bulletSpeed = Math.random()
+        // this.generator = new BulletGenerator(config)
+        // this.bulletPools = this.generator.generate()
+        // this.children = [this.enemy, ...this.bulletPools]
+
+        this.pool = new BeamPool()
+        this.pool.beams = 3
+        this.pool.beamSpread = 120
+        this.pool.spinRate = 4
+        // this.pool.inverseSpin = 90
+        this.pool.originX = this.width / 2
+        this.pool.originY = this.height / 2
+        // this.pool.fireRate = 4
+        this.pool.bulletSpeed = 1
+        this.children = [this.enemy, this.pool]
     }
 
     matchPoolToEnemy() {
@@ -46,15 +55,21 @@ export class Test extends SpriteClass {
 
     update(dt) {
         // we cant put the pool into the enemy GO because it restricts the area. Maybe this can be remedied somehow?
-        for (const bulletPool of this.bulletPools) {
-            bulletPool.get()
-        }
+        this.pool.get()
 
         if (keyPressed('arrowup')) {
-            this.generator.config.beams++
+            this.pool.arrays++
+            console.log(this.pool.arrays)
         } else if (keyPressed('arrowdown')) {
-            this.generator.config.beams--
-
+            this.pool.arrays--
+            console.log(this.pool.arrays)
+        }
+        if (keyPressed('arrowleft')) {
+            this.pool.bulletSpeed += 0.2
+            console.log(this.pool.bulletSpeed)
+        } else if (keyPressed('arrowright')) {
+            this.pool.bulletSpeed -= 0.2
+            console.log(this.pool.bulletSpeed)
         }
 
 
