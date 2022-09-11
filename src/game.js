@@ -75,8 +75,8 @@ export class Game {
                 case "menu":
                     if(this.notebook.children.at(-1).text.length > 3){
                         this.player.name ??= this.notebook.currentText().text.substring(2)
-                        musicPlayer.sounds['bgmusic'].play()
                         this.transitionToScene("game")
+                        musicPlayer.play('bgmusic')
                     }
                     return
 
@@ -93,6 +93,7 @@ export class Game {
 
         onKey(alphabet, (e) => {
             if(this.transitioning) return
+            musicPlayer.play('click')
             this.notebook.type(e.key)
         })
 
@@ -120,6 +121,7 @@ export class Game {
         this.transitioningTo = sceneName
         this.transitionBlock.y = -700
         this.transitionBlock.dy = 20
+        musicPlayer.play('wind')
     }
 
     render(){

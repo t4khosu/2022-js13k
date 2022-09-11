@@ -25,7 +25,7 @@
 
 "use strict";
 
-import {bgmusic} from "./bgmusic";
+import {bgmusic, click, confirmation, wind} from "./sounds";
 
 const CPlayer = function() {
 
@@ -354,16 +354,27 @@ class MusicPlayer{
     sounds = {}
 
     init(){
-        this.sounds['bgmusic'] = this.initSound(bgmusic)
+        this.sounds = {
+            bgmusic: this.initSound(bgmusic, true),
+            confirmation: this.initSound(confirmation),
+            wind: this.initSound(wind),
+            click: this.initSound(click)
+        }
     }
 
-    initSound(source){
+    initSound(source, loop= false){
         let cplayer = new CPlayer()
         cplayer.init(source)
         while(cplayer.generate() < 1){}
         let audio = document.createElement("audio")
         audio.src = URL.createObjectURL(new Blob([cplayer.createWave()], {type: "audio/wav"}))
+        audio.loop = loop
         return audio
+    }
+
+    play(sound){
+        this.sounds[sound].currentTime = 0
+        this.sounds[sound].play()
     }
 }
 
