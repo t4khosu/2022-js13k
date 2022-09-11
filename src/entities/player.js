@@ -1,48 +1,56 @@
-import {emit, getCanvas, keyPressed, SpriteClass} from "kontra";
-
-export function getPlayer() {
-    return currentManager
-}
+import {keyPressed, SpriteClass } from "kontra";
 
 export class Player extends SpriteClass {
-    x = 100
-    y = 80
-    color = '#05b8ff'
-    width = 20
-    height = 40
+    width = 2
+    height = 2
+    z = 3
+    maxHealth = 10
 
-    channelTime = 1.5
+    health
+    invincibleTime
+    name
+    time = 0
 
-    update(dt) {
-        super.update()
-        this.handleCharacterMovement(getCanvas())
+    constructor(game) {
+        super({game: game})
     }
 
-    handleCharacterMovement(canvas) {
-        if (keyPressed('space')) {
-            // TODO add channel time
-            emit('clearWord')
-        } else {
-            if (keyPressed('arrowleft')) {
-                if (this.x > 0) {
-                    this.x -= 1;
-                }
-            } else if (keyPressed('arrowright')) {
-                if (this.x + this.width < canvas.width) {
-                    this.x += 1;
-                }
-            }
-            if (keyPressed('arrowup')) {
-                if (this.y > 0) {
-                    this.y -= 1;
-                }
-            } else if (keyPressed('arrowdown')) {
-                if (this.y + this.height < canvas.height) {
-                    this.y += 1;
-                }
-            }
-
+    update(){
+        this.time++
+        if(keyPressed('arrowleft') && this.x > 0) this.x--
+        if(keyPressed('arrowright') && this.x + this.width < 350) this.x++
+        if(keyPressed('arrowup') && this.y > 0) this.y--
+        if(keyPressed('arrowdown') && this.y + this.height < 400) this.y++
+        if(this.invincibleTime > 0){
+            this.invincibleTime--
+        }else{
+            this.color = '#695535ee'
         }
+    }
 
+    render(){
+        let ctx = this.context
+        ctx.fillStyle = this.color
+        ctx.fillRect(this.x-4, this.y-4, 10, 10)
+
+        ctx.fillStyle = '#99c3a0'
+        ctx.fillRect(this.x, this.y, 2, 2)
+    }
+
+    /**
+     * Reset initial player state
+     */
+    reset(){
+        this.invincibleTime = 0
+        this.health = this.maxHealth
+    }
+
+    /**
+     * Call on enemy or bullet collision
+     */
+    hit(){
+        if(--this.health == 0) this.game.transitionToScene('gameOver')
+        this.invincibleTime += 60
+        this.color = '#69553555'
     }
 }

@@ -5,7 +5,6 @@ import htmlTemplate from 'rollup-plugin-generate-html-template';
 import clear from 'rollup-plugin-clear';
 import serve from 'rollup-plugin-serve';
 import kontra from "rollup-plugin-kontra";
-import copy from "rollup-plugin-copy-assets";
 
 // dev build if watching, prod build if not
 const production = !process.env.ROLLUP_WATCH;
@@ -20,19 +19,13 @@ export default {
             targets: ['dist'],
             watch: true,
         }),
-        copy({
-            assets: [
-                "assets/",
-            ],
-        }),
         // kontra({ // tree-shaking
         //     gameObject: {
         //         anchor: true,
         //         group: true,
         //         velocity: true,
-        //     },
-        //     text: {
-        //         newline: true
+        //         ttl: true,
+        //         dx: true,
         //     },
         //     debug: !production
         // }),

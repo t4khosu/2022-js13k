@@ -11,7 +11,7 @@
   "license": "",
   "author": "wil92",
   "scripts": {
-    "start": "rollup -c -w",
+    "serve": "rollup -c -w",
     "build": "run-s build:*",
     "build:js": "rollup -c",
     "build:html": "inline-html.sh",
