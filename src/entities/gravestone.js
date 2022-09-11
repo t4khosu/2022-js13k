@@ -12,9 +12,9 @@ export class Gravestone extends Readable {
     explode = false
 
     constructor(x, y, name, level) {
-        super(x, y, name, level);
+        super(x, y, name, level)
         this.setTextPos()
-        this.explode = level.difficulty > randInt(2, 20)
+        this.explode = true//level.difficulty > randInt(2, 20)
     }
 
     render(){

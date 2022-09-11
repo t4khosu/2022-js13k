@@ -40,8 +40,7 @@ export class Readable extends SpriteClass {
         this.x += Math.cos(r) * dist
         this.y += Math.sin(r) * dist
 
-        this.text.x = this.x
-        this.text.y = this.y - 12
+        this.setTextPos()
     }
 
     /**

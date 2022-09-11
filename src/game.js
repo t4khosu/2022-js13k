@@ -119,7 +119,7 @@ export class Game {
     transitionToScene(sceneName){
         this.transitioning = true
         this.transitioningTo = sceneName
-        this.transitionBlock.y = -700
+        this.transitionBlock.y = -600
         this.transitionBlock.dy = 20
         musicPlayer.play('wind')
     }
