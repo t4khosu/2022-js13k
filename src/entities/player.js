@@ -17,10 +17,10 @@ export class Player extends SpriteClass {
 
     update(){
         this.time++
-        if(keyPressed('arrowleft') && this.x > 0) this.x--
-        if(keyPressed('arrowright') && this.x + this.width < 350) this.x++
-        if(keyPressed('arrowup') && this.y > 0) this.y--
-        if(keyPressed('arrowdown') && this.y + this.height < 400) this.y++
+        if(keyPressed('arrowleft') && this.x > 5) this.x--
+        if(keyPressed('arrowright') && this.x + this.width < 345) this.x++
+        if(keyPressed('arrowup') && this.y > 5) this.y--
+        if(keyPressed('arrowdown') && this.y + this.height < 395) this.y++
         if(this.invincibleTime > 0){
             this.invincibleTime--
         }else{
