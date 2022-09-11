@@ -13,7 +13,6 @@ export function addSpin(pool, difficulty, inverse) {
 }
 
 export function getPatterns(difficulty) {
-    debugger
     const pools = []
     let difficultyScore = difficulty
     while (difficultyScore > 0) {

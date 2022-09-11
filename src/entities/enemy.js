@@ -1,6 +1,7 @@
-import {randInt, SpriteClass} from "kontra";
+import {GameObjectClass, randInt, SpriteClass} from "kontra";
 import {generateNameByDifficulty} from "../utils/name-generator";
 import {Game} from "../game";
+import {getPatterns} from "./bullet-pattern/pattern";
 
 
 class RandomWalk {
@@ -27,27 +28,6 @@ class CircleWalk extends RandomWalk {
 
 }
 
-class EnemyHandler extends GameObjectClass {
-
-    enemy
-    pools = []
-    enemyTick = 0
-    difficulty
-
-    constructor(properties, difficulty) {
-        super(properties);
-        this.difficulty = difficulty
-        this.enemy = new Enemy()
-
-    }
-
-    update(dt) {
-
-    }
-
-
-}
-
 
 export class Enemy extends SpriteClass {
     x = randInt(100, 200)
@@ -59,6 +39,9 @@ export class Enemy extends SpriteClass {
     speed = 1
     z = 2
     time = 0
+    anchor = {x: 0.5, y: 0.5}
+
+    bulletPatterns = []
 
     constructor(level) {
         super({
@@ -69,12 +52,12 @@ export class Enemy extends SpriteClass {
                 ctx.fillStyle = `rgba(255, 0, 0, ${this.transparency()})`
                 ctx.strokeStyle = `rgba(0, 0, 0, ${this.transparency() * 2})`
                 ctx.beginPath()
-                ctx.arc(15, 15, 15, Math.PI, 2*Math.PI)
-                ctx.lineTo(this.width,40);
+                ctx.arc(15, 15, 15, Math.PI, 2 * Math.PI)
+                ctx.lineTo(this.width, 40);
 
-                for(let i=0; i<=this.width; i+=1){
+                for (let i = 0; i <= this.width; i += 1) {
                     let y = 40 + Math.sin(0.5 * i) * 2;
-                    ctx.lineTo(this.width-i,y);
+                    ctx.lineTo(this.width - i, y);
                 }
                 ctx.lineTo(0, 15);
                 ctx.stroke()
@@ -87,14 +70,18 @@ export class Enemy extends SpriteClass {
                 ctx.fill();
             }
         });
+
+        this.bulletPatterns = getPatterns(level.difficulty)
+        level.children.push(...this.bulletPatterns)
+
     }
 
-    transparency(){
+    transparency() {
         return Math.min(0.3, this.time / 600)
     }
 
-    onType(row){
-        if(this.name != row) return
+    onType(row) {
+        if (this.name != row) return
 
         this.level.removeChild(this)
         this.level.enemies = this.level.enemies.filter(e => e !== this)
@@ -102,9 +89,20 @@ export class Enemy extends SpriteClass {
         this.level.checkClear()
     }
 
+    alignEnemyBeams() {
+        this.bulletPatterns.forEach((pattern) => {
+            pattern.originX = this.x
+            pattern.originY = this.y
+        })
+    }
+
     update() {
-        if(++this.time < 60) return
-        if(this.x <= 20 || this.x >= 250) this.dx *= -1
+        if (++this.time < 60) return
+        if (this.x <= 20 || this.x >= 250) this.dx *= -1
         this.x += this.dx * this.speed
+        this.alignEnemyBeams()
+        this.bulletPatterns.forEach((pattern) => {
+            pattern.bulletTick()
+        })
     }
 }

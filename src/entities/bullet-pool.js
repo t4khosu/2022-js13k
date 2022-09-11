@@ -65,7 +65,7 @@ export class BeamPool extends PoolClass {
     ttl = 200
 
 
-    constructor(config) {
+    constructor() {
         super({create: () => new Bullet()});
     }
 
@@ -128,7 +128,11 @@ export class BeamPool extends PoolClass {
         return configs
     }
 
-    get() {
+    _pc() {
+        //stump to not crash when removing children
+    }
+
+    bulletTick() {
         this.tick += 1
         for (let arrayIndex = 0; arrayIndex < this.arrays; arrayIndex++) {
             const configs = this.getBeamConfigs(arrayIndex)
