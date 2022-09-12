@@ -3,6 +3,7 @@ import {Sprite, Scene, SceneClass, onKey} from "kontra";
 import {Player} from "./entities/player";
 import {Level} from "./entities/level";
 import {musicPlayer} from "./utils/cplayer";
+import {clickSound} from "./utils/sounds";
 const alphabet = ['space', ...[...Array(26).keys()].map(c => String.fromCharCode(c + 97))]
 
 class GameScene extends SceneClass{
@@ -33,6 +34,7 @@ class GameScene extends SceneClass{
     transition(){
         this.nextLevel()
         this.notebook.lineBreak()
+        this.notebook.updatePlayerName(this.player)
         this.notebook.x = 400
     }
 }
@@ -93,7 +95,7 @@ export class Game {
 
         onKey(alphabet, (e) => {
             if(this.transitioning) return
-            musicPlayer.play('click')
+            clickSound()
             this.notebook.type(e.key)
         })
 

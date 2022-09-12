@@ -1,4 +1,5 @@
 import {keyPressed, SpriteClass } from "kontra";
+import {hitSound} from "../utils/sounds";
 
 export class Player extends SpriteClass {
     width = 2
@@ -49,6 +50,7 @@ export class Player extends SpriteClass {
      * Call on enemy or bullet collision
      */
     hit(){
+        hitSound()
         if(--this.health == 0) this.game.transitionToScene('gameOver')
         this.invincibleTime += 60
         this.color = '#69553555'

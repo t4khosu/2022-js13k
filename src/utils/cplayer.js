@@ -25,7 +25,7 @@
 
 "use strict";
 
-import {bgmusic, click, confirmation, wind} from "./sounds";
+import {bgmusic, wind} from "./sounds";
 
 const CPlayer = function() {
 
@@ -356,9 +356,7 @@ class MusicPlayer{
     init(){
         this.sounds = {
             bgmusic: this.initSound(bgmusic, true),
-            confirmation: this.initSound(confirmation),
             wind: this.initSound(wind),
-            click: this.initSound(click)
         }
     }
 

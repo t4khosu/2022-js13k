@@ -26,7 +26,7 @@ export class Notebook extends SpriteClass {
         x: this.width / 2,
         y: 18,
         color: '#880808',
-        font: '16px Luminari',
+        font: '16px monospace',
         text: '',
         textAlign: 'center',
         anchor: {x: 0.5, y: 0.5}
@@ -98,7 +98,8 @@ export class Notebook extends SpriteClass {
      */
     updatePlayerName(player){
         let percentage = 1 - (player.health / player.maxHealth)
-        this.playerName.text = player.name.substring(0,Math.floor(percentage * player.name.length));
+        let len = Math.floor(percentage * player.name.length)
+        this.playerName.text = player.name.substring(0,len) + "_".repeat(player.name.length - len);
     }
 
     /**

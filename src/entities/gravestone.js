@@ -1,5 +1,6 @@
 import {Readable} from "./readable";
 import {randInt} from "kontra";
+import {explode} from "../utils/sounds";
 
 export class Gravestone extends Readable {
     width = 15
@@ -14,7 +15,7 @@ export class Gravestone extends Readable {
     constructor(x, y, name, level) {
         super(x, y, name, level)
         this.setTextPos()
-        this.explode = true//level.difficulty > randInt(2, 20)
+        this.explode = level.difficulty > randInt(2, 20)
     }
 
     render(){
@@ -31,6 +32,7 @@ export class Gravestone extends Readable {
         if(this.time++ % 5 == 0 && this.time < 120) this.x += (this.dx *= -1)
 
         if(this.time == 121){
+            explode()
             let l = this.level
             l.removeChild(this)
 
