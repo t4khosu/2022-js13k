@@ -14,7 +14,6 @@ export function addSpin(pool, difficulty, inverse) {
 }
 
 export function addFirerate(pool, difficulty){
-    debugger
     pool.fireRate = Math.floor(20 - Math.abs(-5 * Math.log(difficulty+3) + 6))
 }
 
