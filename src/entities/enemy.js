@@ -1,12 +1,10 @@
-import {GameObjectClass, randInt, SpriteClass} from "kontra";
+import {randInt, SpriteClass} from "kontra";
 import {generateNameByDifficulty} from "../utils/name-generator";
 import {Game} from "../game";
 import {getPatterns} from "./enemy-pattern/enemy-pattern";
 
 
 export class Enemy extends SpriteClass {
-    x = randInt(100, 200)
-    y = randInt(100, 150)
     width = 30
     height = 40
     dx = 1
@@ -24,8 +22,9 @@ export class Enemy extends SpriteClass {
     b = randInt(50, 255)
     rot = randInt(-5, 5) / 10
 
-    constructor(level) {
+    constructor(level, x, y) {
         super({
+            x: x, y: y,
             level: level,
             name: generateNameByDifficulty(level.difficulty),
             render: () => {
