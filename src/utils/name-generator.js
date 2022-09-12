@@ -1,16 +1,19 @@
 import {randInt} from "kontra";
 
 var firstNames = [
-    'Aa', 'Ab', 'Ac', 'Ad', 'Ae', 'Af', 'Ag', 'Ah', 'Ai', 'Aj',
-    'Ba', 'Bb', 'Bc', 'Bd', 'Be', 'Bf', 'Bg', 'Bh', 'Bi', 'Bj',
-    'Ca', 'Cb', 'Cc', 'Cd', 'Ce', 'Cf', 'Cg', 'Ch', 'Ci', 'Cj',
+    'bel', 'fui', 'li', 'ces', 'echo', 'paul', 'indy', 'elle', 'kelsi', 'zalam', 'vere', 'andre', 'chelle', 'keira',
+    'percy', 'zenia', 'carlton', 'rusty', 'jazmin', 'bonnie', 'carlisa', 'maree', 'hayley', 'justice', 'garret', 'aurora',
+    'doreen', 'ulagella', 'olacaryn', 'chandler', 'maldrak', 'mackenzie', 'shosushah', 'talrandroll', 'andresh', 'drimvildoot',
 ]
 
-var lastNames = ['Aa', 'Ab', 'Ac', 'Ad', 'Ae', 'Af', 'Ag', 'Ah', 'Ai', 'Aj']
+var lastNames = [
+    'pei', 'mu', 'chu', 'rue', 'june', 'brion', 'thelma', 'davin', 'keaton', 'annice', 'darwin',
+    'briella', 'dianne', 'saundra', 'gerrard', 'janella', 'cassandra', 'melody', 'brittney'
+]
 
 let titles = ['cold', 'wind', 'forgotten', 'hateful']
 
-let locations = ['Aa', 'Ab', 'Ac']
+let locations = ['tobria', 'anarim', 'rabia']
 
 // function capitalCase(string) {
 //     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -25,8 +28,9 @@ let locations = ['Aa', 'Ab', 'Ac']
  * @returns {string} - random element from data depending on the difficulty
  */
 function selectByDifficulty(difficulty, data){
+
     let window = Math.floor(data.length / 3)
-    difficulty = Math.min(difficulty, window * 2) - 1
+    difficulty = Math.max(Math.min(difficulty-5, window * 2) - 1, 0)
     return data[randInt(difficulty, window + difficulty)]
 }
 
@@ -44,8 +48,7 @@ export function generateNameByDifficulty(difficulty){
     if(difficulty > 5 && Math.random() > 0.6){
         name += ' the ' + selectByDifficulty(difficulty, titles)
     }
-
-    if(difficulty > 10 && Math.random() > 0.7){
+    else if(difficulty > 10 && Math.random() > 0.7){
         name += ' from ' + selectByDifficulty(difficulty, locations)
     }
 
