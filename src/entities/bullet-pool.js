@@ -63,7 +63,7 @@ export class BeamPool extends PoolClass {
     startAngle = 0
 
     ttl = 200
-
+    active = false
 
     constructor() {
         super({create: () => new Bullet()});
@@ -133,28 +133,31 @@ export class BeamPool extends PoolClass {
     }
 
     bulletTick() {
-        this.tick += 1
-        for (let arrayIndex = 0; arrayIndex < this.arrays; arrayIndex++) {
-            const configs = this.getBeamConfigs(arrayIndex)
-            for (const config of configs) {
-                if (this.tick % this.fireRate === 0) {
-                    let dx = config.dx
-                    let dy = config.dy
-                    if (config.dxf)
-                        dx = config.dxf(this.tick)
-                    if (config.dyf)
-                        dy = config.dyf(this.tick)
-                    //get ddf
-                    let ddx = config.dx
-                    let ddy = config.dy
-                    if (config.ddxf)
-                        ddx = config.ddxf(this.tick)
-                    if (config.ddyf)
-                        ddy = config.ddyf(this.tick)
+        if (this.active){
+            this.tick += 1
+            for (let arrayIndex = 0; arrayIndex < this.arrays; arrayIndex++) {
+                const configs = this.getBeamConfigs(arrayIndex)
+                for (const config of configs) {
+                    if (this.tick % this.fireRate === 0) {
+                        let dx = config.dx
+                        let dy = config.dy
+                        if (config.dxf)
+                            dx = config.dxf(this.tick)
+                        if (config.dyf)
+                            dy = config.dyf(this.tick)
+                        //get ddf
+                        let ddx = config.dx
+                        let ddy = config.dy
+                        if (config.ddxf)
+                            ddx = config.ddxf(this.tick)
+                        if (config.ddyf)
+                            ddy = config.ddyf(this.tick)
 
-                    super.get({...config, dx: dx, dy: dy, ddy: ddy, ddx: ddx})
+                        super.get({...config, dx: dx, dy: dy, ddy: ddy, ddx: ddx})
+                    }
                 }
             }
+
         }
     }
 

@@ -6,6 +6,13 @@ export class EnemyPattern {
     ticks = 1
     pools = []
     movement = chaseMovement()
+
+    togglePools(bool){
+        this.pools.forEach((pool) => {
+            pool.active = bool
+        })
+    }
+
 }
 
 export function getPatterns(difficulty) {
@@ -13,7 +20,7 @@ export function getPatterns(difficulty) {
     let difficultyScore = difficulty
     while (difficultyScore > 0) {
         const pattern = new EnemyPattern()
-        pattern.ticks = randInt(30, 120)
+        pattern.ticks = randInt(120, 240)
         pattern.movement = getMovement(difficultyScore)
 
         const cost = randInt(3, Math.max(difficultyScore, 4))

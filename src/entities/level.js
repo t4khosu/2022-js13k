@@ -3,12 +3,12 @@ import {Enemy} from "./enemy";
 import {Gravestone} from "./gravestone";
 import {Game} from "../game";
 
+let currentDifficulty = 7
+
 export class Level extends SpriteClass {
     color = '#8da683'
     width = 350
     height = 400
-
-    static difficulty = 7
 
     gravestones = []
     enemies
@@ -23,7 +23,7 @@ export class Level extends SpriteClass {
             scene: scene,
             player: scene.player,
             notebook: scene.notebook,
-            difficulty: Level.difficulty++,
+            difficulty: currentDifficulty++,
         });
         this.enemies = [new Enemy(this)]
         this.notebook.currentEnemies = this.enemies

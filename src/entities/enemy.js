@@ -52,7 +52,11 @@ export class Enemy extends SpriteClass {
             }
         });
         this.patterns = getPatterns(level.difficulty)
-        this.level.addChild(...this.patterns[this.currentPattern].pools)
+        this.patterns.forEach(pattern => {
+            this.level.addChild(...pattern.pools)
+        })
+        this.patterns[this.currentPattern].togglePools(true)
+
     }
 
     transparency() {
@@ -75,6 +79,7 @@ export class Enemy extends SpriteClass {
         })
     }
 
+
     update() {
         ++this.patternTick
         if (++this.time < 60) return
@@ -82,11 +87,11 @@ export class Enemy extends SpriteClass {
         let pattern = this.patterns[this.currentPattern]
 
         if (this.patternTick > pattern.ticks){
-            this.level.removeChild(...pattern.pools)
+            pattern.togglePools(false)
             this.patternTick = 0
-            this.currentPattern = this.currentPattern +1 % this.patterns.length
+            this.currentPattern = (this.currentPattern +1) % this.patterns.length
             pattern = this.patterns[this.currentPattern]
-            this.level.addChild(...pattern.pools)
+            pattern.togglePools(true)
         }
 
         //movement
