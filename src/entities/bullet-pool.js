@@ -1,16 +1,17 @@
-import {collides, PoolClass, SpriteClass} from "kontra";
+import {collides, PoolClass, randInt, SpriteClass} from "kontra";
 import {degToRad} from "kontra";
 
 export class Bullet extends SpriteClass {
     constructor(color) {
         super({
             color: color,
+            time: 0
         });
     }
     init(properties) {
         super.init({
-            width: 3,
-            height: 3,
+            width: 4,
+            height: 4,
             color: this.color,
             ...properties,
             render(){
@@ -26,6 +27,7 @@ export class Bullet extends SpriteClass {
 
     update(){
         super.update()
+        this.time++
         if(this.x > 348){
             this.ttl = 0
         }

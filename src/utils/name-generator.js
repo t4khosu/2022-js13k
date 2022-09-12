@@ -1,19 +1,30 @@
 import {randInt} from "kontra";
 
 var firstNames = [
-    'bel', 'fui', 'li', 'ces', 'echo', 'paul', 'indy', 'elle', 'kelsi', 'zalam', 'vere', 'andre', 'chelle', 'keira', 'julia', 'eden',
-    'percy', 'zenia', 'joyce', 'carlton', 'rusty', 'jazmin', 'bonnie', 'carlisa', 'maree', 'hayley', 'justice', 'garret', 'aurora',
-    'doreen', 'ulagella', 'olacaryn', 'yasmine', 'chandler', 'maldrak', 'mackenzie', 'shosushah', 'talrandroll', 'andresh', 'drimvildoot',
+    'ari', 'amy', 'mary', 'john', 'lisa', 'mark', 'paul', 'james', 'linda', 'david',
+    'susan', 'sarah', 'karen', 'nancy', 'betty', 'emily', 'donna', 'carol', 'kevin',
+    'brian', 'laura', 'jacob', 'robert', 'joseph', 'thomas', 'daniel', 'sandra', 'donald',
+    'ashley', 'steven', 'andrew', 'joshua', 'amanda', 'george', 'pamela', 'michael', 'william',
+    'barbara', 'richard', 'jessica', 'charles', 'matthew', 'anthony', 'kenneth', 'dorothy',
+    'melissa', 'timothy', 'deborah', 'stephen', 'patricia', 'jennifer',
+    'margaret', 'kimberly', 'michelle', 'jonathan', 'elizabeth', 'stephanie', 'christopher',
 ]
 
 var lastNames = [
-    'pei', 'mu', 'chu', 'rue', 'june', 'brion', 'thelma', 'davin', 'keaton', 'annice', 'darwin', 'green',
-    'briella', 'dianne', 'saundra', 'gerrard', 'janella', 'cassandra', 'melody', 'brittney', 'austin'
+    'li', 'lee', 'wang', 'berg', 'musa', 'tamm', 'park', 'moore', 'brown', 'nowak',
+    'meyer', 'lopez', 'smith', 'monet', 'akbas', 'novak', 'taylor', 'gracia', 'hansen',
+    'melnyk', 'almeida', 'ibrahim', 'lavigne', 'adamcik', 'seatang', 'albescu', 'williams',
+    'kowalska', 'einstein', 'pedersen', 'andersson'
 ]
 
-let titles = ['cold', 'wind', 'forgotten', 'hateful', 'great', 'nobody', 'slayer']
+let titles = [
+    'cold', 'wind', 'forgotten', 'hateful', 'great', 'greedy', 'slayer', 'grumpy', 'sleepy'
+]
 
-let locations = ['tobria', 'anarim', 'rabia']
+let locations = [
+    'sidney', 'berlin', 'paris', 'london', 'madrid', 'beijing', 'tallinn', 'stockholm',
+    'abuja', 'brasilia', 'rome', 'bukarest',
+]
 
 
 /**
