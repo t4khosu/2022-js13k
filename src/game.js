@@ -84,7 +84,6 @@ export class Game {
 
                 case "gameOver":
                     this.scenes.game = new GameScene(this)
-                    this.notebook.updatePlayerName(this.player)
                     this.score = 0
                     this.transitionToScene("game")
                     return

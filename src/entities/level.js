@@ -2,6 +2,7 @@ import {collides, SpriteClass, Text} from "kontra";
 import {Enemy} from "./enemy";
 import {BulletPool} from "./bullet-pool";
 import {Gravestone} from "./gravestone";
+import {Game} from "../game";
 
 export class Level extends SpriteClass {
     color = '#8da683'
@@ -15,7 +16,9 @@ export class Level extends SpriteClass {
     enemies
     name
 
-    static score = 0
+    scoreText = Text({
+        x: 2, y: 2, z: 100, text: `Returned: ${Game.instance.score}`, color: "black"
+    })
 
     constructor(scene) {
         super({
@@ -31,7 +34,7 @@ export class Level extends SpriteClass {
 
         this.bulletPool = new BulletPool()
 
-        this.children = [...this.gravestones, this.player, ...this.enemies]
+        this.children = [...this.gravestones, this.player, ...this.enemies, this.scoreText]
         this.sort()
     }
 

@@ -56,7 +56,7 @@ export class Enemy extends SpriteClass {
 
         this.level.removeChild(this)
         this.level.enemies = this.level.enemies.filter(e => e !== this)
-        Game.instance.score++;
+        ++Game.instance.score
         this.level.checkClear()
     }
 
