@@ -2,7 +2,7 @@ import {collides, SpriteClass, Text} from "kontra";
 import {Enemy} from "./enemy";
 import {BeamPool} from "./bullet-pool";
 import {Gravestone} from "./gravestone";
-import {getPatterns} from "./bullet-pattern/pattern";
+import {getPatterns} from "./enemy-pattern/pattern";
 
 export class Level extends SpriteClass {
     color = '#8da683'

@@ -1,7 +1,7 @@
 import {GameObjectClass, randInt, SpriteClass} from "kontra";
 import {generateNameByDifficulty} from "../utils/name-generator";
 import {Game} from "../game";
-import {getPatterns} from "./bullet-pattern/pattern";
+import {generatePools, straightMovement} from "./enemy-pattern/pattern";
 
 
 class RandomWalk {
@@ -35,7 +35,7 @@ export class Enemy extends SpriteClass {
     width = 30
     height = 40
     dx = 1
-    dy = 0
+    dy = 1
     speed = 1
     z = 2
     time = 0
@@ -71,7 +71,7 @@ export class Enemy extends SpriteClass {
             }
         });
 
-        this.bulletPatterns = getPatterns(level.difficulty)
+        this.bulletPatterns = generatePools(level.difficulty)
         level.children.push(...this.bulletPatterns)
 
     }
@@ -98,11 +98,16 @@ export class Enemy extends SpriteClass {
 
     update() {
         if (++this.time < 60) return
-        if (this.x <= 20 || this.x >= 250) this.dx *= -1
-        this.x += this.dx * this.speed
+
+        debugger
+        const movement = straightMovement(randInt(1, 2) % 2 === 0)
+        movement(this, this.speed)
+
         this.alignEnemyBeams()
         this.bulletPatterns.forEach((pattern) => {
             pattern.bulletTick()
+            if (pattern.checkHit(this.level.player))
+                this.level.player.hit()
         })
     }
 }

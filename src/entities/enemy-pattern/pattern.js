@@ -1,5 +1,31 @@
 import {randInt} from "kontra";
 import {BeamPool} from "../bullet-pool";
+import {Level} from "../level";
+
+export class EnemyPattern {
+
+    ticks = 1
+    pools = []
+    movement
+
+}
+
+
+export function straightMovement(horizontal) {
+    return (go, speed) => {
+        const padding = 20
+        let max = go.level.height
+        if (horizontal) {
+            max = go.level.width
+            if (go.x <= padding || go.x >= max - padding) go.dx *= -1
+            go.x += go.dx * speed
+        } else {
+            if (go.y <= padding || go.y >= max - padding) go.dy *= -1
+            go.y += go.dy * speed
+        }
+    }
+}
+
 
 export function getBasicPool(arrays) {
     const pool = new BeamPool()
@@ -12,7 +38,8 @@ export function addSpin(pool, difficulty, inverse) {
     pool.spinRate = 1 + difficulty
 }
 
-export function getPatterns(difficulty) {
+
+export function generatePools(difficulty) {
     const pools = []
     let difficultyScore = difficulty
     while (difficultyScore > 0) {
@@ -25,7 +52,7 @@ export function getPatterns(difficulty) {
             addSpin(pool, spin, pools.length % 2 === 1)
         }
         const reverse = randInt(0, 5)
-        if (reverse < 1) {
+        if (reverse < 2) {
             pool.inverseSpin = randInt(45, 120)
         }
         pools.push(pool)
