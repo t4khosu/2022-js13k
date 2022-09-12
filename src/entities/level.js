@@ -2,7 +2,6 @@ import {collides, SpriteClass, Text} from "kontra";
 import {Enemy} from "./enemy";
 import {Gravestone} from "./gravestone";
 import {Game} from "../game";
-import {getPatterns} from "./enemy-pattern/pattern";
 
 export class Level extends SpriteClass {
     color = '#8da683'
@@ -28,9 +27,9 @@ export class Level extends SpriteClass {
         });
         this.enemies = [new Enemy(this)]
         this.notebook.currentEnemies = this.enemies
-        this.enemies.forEach(e => this.gravestones.push(new Gravestone(e.x + 8, e.y + 10, e.name, this)))
+        this.enemies.forEach(e => this.gravestones.push(new Gravestone(e.x-7, e.y-7, e.name, this)))
 
-        this.children.push(...this.gravestones, this.player, ...this.enemies)
+        this.children.push(...this.gravestones, this.player, ...this.enemies, this.scoreText)
         this.sort()
     }
 
