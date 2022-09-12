@@ -51,7 +51,7 @@ export class Game {
     notebook = new Notebook(235, 70)
     player = new Player(this)
 
-    currentDifficulty = 1
+    currentDifficulty = 5
 
     score = 0
 
