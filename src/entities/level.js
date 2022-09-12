@@ -9,7 +9,7 @@ export class Level extends SpriteClass {
     width = 350
     height = 400
 
-    static difficulty = 1
+    static difficulty = 7
 
     gravestones = []
     enemies

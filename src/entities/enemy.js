@@ -1,32 +1,7 @@
 import {GameObjectClass, randInt, SpriteClass} from "kontra";
 import {generateNameByDifficulty} from "../utils/name-generator";
 import {Game} from "../game";
-import {generatePools, straightMovement} from "./enemy-pattern/pattern";
-
-
-class RandomWalk {
-
-    start
-
-    constructor(start) {
-        this.start = start
-    }
-
-    move() {
-
-    }
-}
-
-class CircleWalk extends RandomWalk {
-    constructor(start) {
-        super(start);
-    }
-
-    move() {
-
-    }
-
-}
+import {getPatterns} from "./enemy-pattern/enemy-pattern";
 
 
 export class Enemy extends SpriteClass {
@@ -41,7 +16,8 @@ export class Enemy extends SpriteClass {
     time = 0
     anchor = {x: 0.5, y: 0.5}
 
-    bulletPatterns = []
+    currentPattern = 0
+    patternTick = 0
 
     constructor(level) {
         super({
@@ -70,10 +46,8 @@ export class Enemy extends SpriteClass {
                 ctx.fill();
             }
         });
-
-        this.bulletPatterns = generatePools(level.difficulty)
-        level.children.push(...this.bulletPatterns)
-
+        this.patterns = getPatterns(level.difficulty)
+        this.level.addChild(...this.patterns[this.currentPattern].pools)
     }
 
     transparency() {
@@ -89,24 +63,36 @@ export class Enemy extends SpriteClass {
         this.level.checkClear()
     }
 
-    alignEnemyBeams() {
-        this.bulletPatterns.forEach((pattern) => {
-            pattern.originX = this.x
-            pattern.originY = this.y
+    alignPools(pools) {
+        pools.forEach((pool) => {
+            pool.originX = this.x
+            pool.originY = this.y
         })
     }
 
     update() {
+        ++this.patternTick
         if (++this.time < 60) return
 
-        debugger
-        const movement = straightMovement(randInt(1, 2) % 2 === 0)
-        movement(this, this.speed)
+        let pattern = this.patterns[this.currentPattern]
 
-        this.alignEnemyBeams()
-        this.bulletPatterns.forEach((pattern) => {
-            pattern.bulletTick()
-            if (pattern.checkHit(this.level.player))
+        if (this.patternTick > pattern.ticks){
+            this.level.removeChild(...pattern.pools)
+            this.patternTick = 0
+            this.currentPattern = this.currentPattern +1 % this.patterns.length
+            pattern = this.patterns[this.currentPattern]
+            this.level.addChild(...pattern.pools)
+        }
+
+        //movement
+        pattern.movement(this, this.speed)
+
+        //bullet pools
+        const pools = pattern.pools
+        this.alignPools(pools)
+        pools.forEach((pool) => {
+            pool.bulletTick()
+            if (pool.checkHit(this.level.player))
                 this.level.player.hit()
         })
     }

@@ -1,17 +1,49 @@
-import {randInt} from "kontra";
-import {BeamPool} from "../bullet-pool";
-import {Level} from "../level";
+import {randInt, degToRad} from "kontra";
 
-export class EnemyPattern {
 
-    ticks = 1
-    pools = []
-    movement
 
+
+export function getMovement(difficulty){
+    const movements = [straightMovement(randInt(1,2) === 1 )]
+    if (difficulty > 5){
+        movements.push(chaseMovement())
+    }
+    if (difficulty > 10){
+        const radius = randInt(30, 60-difficulty)
+        movements.push(circleMovement(radius))
+    }
+    return movements[randInt(0, movements.length - 1)]
 }
 
 
-export function straightMovement(horizontal) {
+export function circleMovement(radius) {
+    return (go, speed) => {
+        const player = go.level.player
+
+        const distance = Math.sqrt((Math.pow((go.x-player.x),2)  + Math.pow((go.y-player.y), 2)))
+        const distanceDiff = 1/100 * (radius - distance)
+
+        let angle = Math.atan2( go.y-player.y, go.x-player.x ) * ( 180 / Math.PI )
+        angle = degToRad(angle +1)
+        const circleX = player.x + Math.cos(angle) * (distance + distanceDiff)
+        const circleY = player.y + Math.sin(angle) * (distance +distanceDiff)
+
+        go.x = circleX
+        go.y =  circleY
+    }
+}
+
+export function chaseMovement() {
+    return (go, speed) => {
+        const player = go.level.player
+        const xDiff = player.x - go.x
+        const yDiff = player.y - go.y
+        go.x += 1/(500 -speed*100) * xDiff
+        go.y += 1/(500 -speed*100) * yDiff
+    }
+}
+
+ function straightMovement(horizontal) {
     return (go, speed) => {
         const padding = 20
         let max = go.level.height
@@ -25,38 +57,3 @@ export function straightMovement(horizontal) {
         }
     }
 }
-
-
-export function getBasicPool(arrays) {
-    const pool = new BeamPool()
-    pool.arrays = arrays
-    pool.arraySpread = 360 / arrays
-    return pool
-}
-
-export function addSpin(pool, difficulty, inverse) {
-    pool.spinRate = 1 + difficulty
-}
-
-
-export function generatePools(difficulty) {
-    const pools = []
-    let difficultyScore = difficulty
-    while (difficultyScore > 0) {
-        const arrays = randInt(1, Math.min(Math.ceil(difficultyScore / 2), 6))
-        difficultyScore -= arrays
-        const pool = getBasicPool(arrays)
-        if (difficultyScore >= 0) {
-            const spin = randInt(0, Math.min(Math.ceil(difficultyScore / 2), 6))
-            difficultyScore -= spin
-            addSpin(pool, spin, pools.length % 2 === 1)
-        }
-        const reverse = randInt(0, 5)
-        if (reverse < 2) {
-            pool.inverseSpin = randInt(45, 120)
-        }
-        pools.push(pool)
-    }
-    return pools
-}
-
