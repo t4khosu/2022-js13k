@@ -9,7 +9,8 @@ export class Readable extends SpriteClass {
         color: 'black',
         font: "15px Garamond",
         textAlign: 'center',
-        anchor: { x: 0.5, y: 0.5 }
+        width: 100,
+        anchor: { x: 0.5, y: 0 }
     })
 
     playerCollision = false

@@ -53,10 +53,10 @@ export function generateNameByDifficulty(difficulty){
     let name = firstName + ' ' + lastName
 
     if(difficulty > 5 && Math.random() > 0.6){
-        name += ' the ' + selectByDifficulty(difficulty, titles)
+        name += ' the ' + titles[randInt(0, titles.length-1)]
     }
     else if(difficulty > 10 && Math.random() > 0.7){
-        name += ' from ' + selectByDifficulty(difficulty, locations)
+        name += ' from ' + locations[randInt(0, locations.length-1)]
     }
 
     return name

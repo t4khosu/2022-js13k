@@ -101,7 +101,7 @@ export class Enemy extends SpriteClass {
         }
 
         //movement
-        if (++this.time > 360){
+        if (++this.time > 300){
             pattern.movement(this, this.speed)
         }
 
