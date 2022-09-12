@@ -50,9 +50,13 @@ export class Player extends SpriteClass {
      * Call on enemy or bullet collision
      */
     hit(){
+        if(this.invincibleTime > 0) return false
+
         hitSound()
         if(--this.health == 0) this.game.transitionToScene('gameOver')
-        this.invincibleTime += 60
+        this.invincibleTime += 40
         this.color = '#69553555'
+
+        return true
     }
 }

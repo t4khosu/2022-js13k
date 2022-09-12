@@ -37,9 +37,8 @@ export class Level extends SpriteClass {
     update(dt) {
         this.gravestones.forEach(g => collides(this.player, g) ? g.onPlayerCollisionEnter() : g.onPlayerCollisionExit())
         this.enemies.forEach(e => {
-            if (collides(this.player, e) && this.player.invincibleTime == 0) {
-                this.player.hit()
-                this.notebook.updatePlayerName(this.player)
+            if (collides(this.player, e)) {
+                if(this.player.hit()) this.notebook.updatePlayerName(this.player)
             }
         })
         super.update(dt)

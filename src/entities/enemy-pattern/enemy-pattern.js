@@ -10,7 +10,6 @@ export class EnemyPattern {
 
 export function getPatterns(difficulty) {
     const patterns = []
-    debugger
     let difficultyScore = difficulty
     while (difficultyScore > 0) {
         const pattern = new EnemyPattern()
