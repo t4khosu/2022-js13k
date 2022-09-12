@@ -13,8 +13,10 @@ export function addSpin(pool, difficulty, inverse) {
     pool.spinRate = 1 + difficulty
 }
 
-
-
+export function addFirerate(pool, difficulty){
+    debugger
+    pool.fireRate = Math.floor(20 - Math.abs(-5 * Math.log(difficulty+3) + 6))
+}
 
 export function getPools(cost){
     let account = cost
@@ -23,6 +25,7 @@ export function getPools(cost){
         const arrays = randInt(1, Math.min(Math.ceil(account / 2), 6))
         account -= arrays
         const pool = getBasicPool(arrays)
+        addFirerate(pool, cost)
         if (account >= 0) {
             const spin = randInt(0, Math.min(Math.ceil(account / 2), 6))
             account -= spin
