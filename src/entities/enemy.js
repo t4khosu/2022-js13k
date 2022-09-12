@@ -2,6 +2,7 @@ import {randInt, SpriteClass} from "kontra";
 import {generateNameByDifficulty} from "../utils/name-generator";
 import {Game} from "../game";
 import {getPatterns} from "./enemy-pattern/enemy-pattern";
+import {killSound} from "../utils/sounds";
 
 
 export class Enemy extends SpriteClass {
@@ -50,8 +51,10 @@ export class Enemy extends SpriteClass {
                 ctx.fill();
             }
         });
+
+        let patternDif = level.difficulty < 12 ? level.difficulty : level.difficulty - 6
         this.patterns = getPatterns(
-            level.difficulty,
+            patternDif,
             `rgb(${this.r},${this.g},${this.b})`
         )
         this.patterns.forEach(pattern => {
@@ -68,6 +71,7 @@ export class Enemy extends SpriteClass {
     onType(row) {
         if (this.name != row) return
 
+        killSound()
         this.level.removeChild(this)
         this.level.enemies = this.level.enemies.filter(e => e !== this)
         ++Game.instance.score
@@ -84,7 +88,7 @@ export class Enemy extends SpriteClass {
 
     update() {
         ++this.patternTick
-        if (++this.time < 60) return
+
 
         let pattern = this.patterns[this.currentPattern]
 
@@ -97,7 +101,10 @@ export class Enemy extends SpriteClass {
         }
 
         //movement
-        pattern.movement(this, this.speed)
+        if (++this.time > 360){
+            pattern.movement(this, this.speed)
+        }
+
 
         //bullet pools
         const pools = pattern.pools

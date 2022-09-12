@@ -13,7 +13,7 @@ export class Level extends SpriteClass {
     name
 
     scoreText = Text({
-        x: 2, y: 2, z: 100, text: `Returned: ${Game.instance.score}`, color: "black"
+        x: 4, y: 4, z: 100, text: `Returned: ${Game.instance.score}`, color: "black"
     })
 
     constructor(scene) {
@@ -26,7 +26,7 @@ export class Level extends SpriteClass {
 
         this.enemies = [new Enemy(this, randInt(120, 180), randInt(70, 120))]
 
-        // if(this.difficulty > 8) this.enemies.push(new Enemy(this, randInt(50, 80), randInt(200, 230)))
+        if(this.difficulty > 12) this.enemies.push(new Enemy(this, randInt(50, 80), randInt(200, 230)))
         // if(this.difficulty > 16) this.enemies.push(new Enemy(this, randInt(200, 250), randInt(200, 230)))
 
         this.notebook.currentEnemies = this.enemies
@@ -34,13 +34,12 @@ export class Level extends SpriteClass {
 
         this.children.push(...this.gravestones, this.player, ...this.enemies, this.scoreText)
         this.sort()
-        console.log(this.difficulty)
     }
 
     update(dt) {
         this.gravestones.forEach(g => collides(this.player, g) ? g.onPlayerCollisionEnter() : g.onPlayerCollisionExit())
         this.enemies.forEach(e => {
-            if (collides(this.player, e)) this.player.hit()
+            if (collides(this.player, e)) this.player.hit(3)
         })
         super.update(dt)
     }

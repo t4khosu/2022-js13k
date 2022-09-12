@@ -23,6 +23,7 @@ class GameScene extends SceneClass{
         this.level = new Level(this)
         this.player.x = 165
         this.player.y = 350
+        this.player.health = Math.min(this.player.health+1, this.player.maxHealth)
         this.add(this.level)
     }
 

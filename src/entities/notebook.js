@@ -40,16 +40,23 @@ export class Notebook extends SpriteClass {
                 let c = this.context
 
                 c.fillStyle = '#f2dcb1'
-                c.beginPath()
                 c.fillRect(0, 0, this.width, this.height)
 
                 c.fillStyle = '#778377'
                 this.textPositions.forEach(tp => c.fillRect(20, tp, 260, 1))
                 this.paginationText.render()
-                this.title.render()
                 this.playerName.render()
+                this.title.render()
+
+                c.fillStyle = '#554444'
+                c.fillRect(20, -50, 10, 40)
+                c.fillRect(10, -40, 30, 10)
+
+                c.fillRect(270, -50, 10, 40)
+                c.fillRect(260, -40, 30, 10)
             }
         });
+
         this.initCover()
     }
 
@@ -59,13 +66,12 @@ export class Notebook extends SpriteClass {
     initCover(){
         [
             "Ancient funerary texts, holding",
-            "names of the departed, now",
-            "burned to ashes. Back to life, the",
-            "dead roam these lands once more.",
-            "Holder of I, collect the names of",
-            "these dead and bring back order.",
-            "Seal a pact, give me your first",
-            "name."
+            "names of the departed, now burned to",
+            "ashes. Cursed to never rest, the dead",
+            "roam these lands once more. Thou who",
+            "holds me, collect the names of",
+            "these lost souls and restore order.",
+            "Seal a pact, give me thy first name."
         ].forEach((line, pos) => this.insertLineAt(pos, line))
         this.lineBreak()
     }
@@ -85,9 +91,9 @@ export class Notebook extends SpriteClass {
             "and entered the realm of death.",
             "",
             "You successfully returned",
-            `${Game.instance.score} corpses to my realm.`,
+            `${Game.instance.score} souls to my realm.`,
             "",
-            "Turn this page over to go back",
+            "Turn this page to go back",
             "and try once again."
         ].forEach((line, pos) => this.insertLineAt(pos, line))
     }
@@ -120,9 +126,11 @@ export class Notebook extends SpriteClass {
      * @param {string} key
      */
     type(key){
+        key = key == " " ? "·" : key
         let currentLine = this.currentText()
         currentLine.text += currentLine.text.length < 34 ? key : ''
-        this.currentEnemies.forEach(e => e.onType(currentLine.text.substring(2)))
+        let conv = currentLine.text.substring(2).replaceAll("·", " ")
+        this.currentEnemies.forEach(e => e.onType(conv))
     }
 
     /**

@@ -43,7 +43,7 @@ export function chaseMovement() {
     }
 }
 
- function straightMovement(horizontal) {
+ export function straightMovement(horizontal) {
     return (go, speed) => {
         const padding = 20
         let max = go.level.height

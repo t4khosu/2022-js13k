@@ -24,7 +24,7 @@ export function getPools(cost, color){
         const arrays = randInt(1, Math.min(Math.ceil(account / 2), 6))
         account -= arrays
         const pool = getBasicPool(arrays, color)
-        addFirerate(pool, cost)
+        addFirerate(pool, Math.min(50, cost))
         if (account >= 0) {
             const spin = randInt(0, Math.min(Math.ceil(account / 2), 6))
             account -= spin
