@@ -2,18 +2,18 @@ import {SpriteClass, Text} from "kontra";
 import {Game} from "../game";
 
 export class Notebook extends SpriteClass {
-    width = 230
+    width = 300
     height = 330
     numLines = 9
     numPage = 0
     currentEnemies = []
 
     title = Text({
-        text: 'Book of Death', font: '32px Luminari', color: 'white', x: 20, y: -50,
+        text: 'Book of Death', font: '32px Luminari', color: 'white', x: 55, y: -50,
     })
 
     paginationText = Text({
-        x: 8, y: 8, font: '14px Luminari', color: '#880808'
+        x: 147, y: 313, font: '12px Luminari', color: '#880808'
     })
 
     currentLine = this.numLines - 2
@@ -26,7 +26,7 @@ export class Notebook extends SpriteClass {
         x: this.width / 2,
         y: 18,
         color: '#880808',
-        font: '16px monospace',
+        font: '13px monospace',
         text: '',
         textAlign: 'center',
         anchor: {x: 0.5, y: 0.5}
@@ -44,7 +44,7 @@ export class Notebook extends SpriteClass {
                 c.fillRect(0, 0, this.width, this.height)
 
                 c.fillStyle = '#778377'
-                this.textPositions.forEach(tp => c.fillRect(20, tp, 190, 1))
+                this.textPositions.forEach(tp => c.fillRect(20, tp, 260, 1))
                 this.paginationText.render()
                 this.title.render()
                 this.playerName.render()
@@ -121,7 +121,7 @@ export class Notebook extends SpriteClass {
      */
     type(key){
         let currentLine = this.currentText()
-        currentLine.text += currentLine.text.length < 30 ? key : ''
+        currentLine.text += currentLine.text.length < 34 ? key : ''
         this.currentEnemies.forEach(e => e.onType(currentLine.text.substring(2)))
     }
 
@@ -133,10 +133,10 @@ export class Notebook extends SpriteClass {
     insertLineAt(pos, initialText){
         this.addChild(Text({
             x: 20,
-            y: this.textPositions[pos] - 13,
+            y: this.textPositions[pos] - 11,
             color: '#880808',
-            font: '14px Luminari',
-            text: initialText
+            font: '12px monospace',
+            text: initialText,
         }))
     }
 
