@@ -46,6 +46,8 @@ export class Game {
     transitioning
     transitioningTo
 
+    musicPlaying = false
+
     notebook = new Notebook(235, 70)
     player = new Player(this)
 
@@ -78,7 +80,6 @@ export class Game {
                     if(this.notebook.children.at(-1).text.length > 3){
                         this.player.name ??= this.notebook.currentText().text.substring(2)
                         this.transitionToScene("game")
-                        musicPlayer.play('bgmusic')
                     }
                     return
 
@@ -134,7 +135,13 @@ export class Game {
         if(this.transitioning){
             this.transitionBlock.y += 20;
             if(this.transitionBlock.y == 0) this.setScene(this.transitioningTo)
-            if(this.transitionBlock.y >= 400) this.transitioning = false
+            if(this.transitionBlock.y >= 400) {
+                if(!this.musicPlaying && this.transitioningTo == 'game'){
+                    this.musicPlaying = true
+                    musicPlayer.play('bgmusic')
+                }
+                this.transitioning = false
+            }
             return
         }
 
