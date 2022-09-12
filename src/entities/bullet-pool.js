@@ -10,6 +10,13 @@ export class Bullet extends SpriteClass {
             ...properties
         })
     }
+
+    update(){
+        super.update()
+        if(this.x > 348){
+            this.ttl = 0
+        }
+    }
 }
 
 /**

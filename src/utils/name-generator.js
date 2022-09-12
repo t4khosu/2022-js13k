@@ -1,23 +1,19 @@
 import {randInt} from "kontra";
 
 var firstNames = [
-    'bel', 'fui', 'li', 'ces', 'echo', 'paul', 'indy', 'elle', 'kelsi', 'zalam', 'vere', 'andre', 'chelle', 'keira',
-    'percy', 'zenia', 'carlton', 'rusty', 'jazmin', 'bonnie', 'carlisa', 'maree', 'hayley', 'justice', 'garret', 'aurora',
-    'doreen', 'ulagella', 'olacaryn', 'chandler', 'maldrak', 'mackenzie', 'shosushah', 'talrandroll', 'andresh', 'drimvildoot',
+    'bel', 'fui', 'li', 'ces', 'echo', 'paul', 'indy', 'elle', 'kelsi', 'zalam', 'vere', 'andre', 'chelle', 'keira', 'julia', 'eden',
+    'percy', 'zenia', 'joyce', 'carlton', 'rusty', 'jazmin', 'bonnie', 'carlisa', 'maree', 'hayley', 'justice', 'garret', 'aurora',
+    'doreen', 'ulagella', 'olacaryn', 'yasmine', 'chandler', 'maldrak', 'mackenzie', 'shosushah', 'talrandroll', 'andresh', 'drimvildoot',
 ]
 
 var lastNames = [
-    'pei', 'mu', 'chu', 'rue', 'june', 'brion', 'thelma', 'davin', 'keaton', 'annice', 'darwin',
-    'briella', 'dianne', 'saundra', 'gerrard', 'janella', 'cassandra', 'melody', 'brittney'
+    'pei', 'mu', 'chu', 'rue', 'june', 'brion', 'thelma', 'davin', 'keaton', 'annice', 'darwin', 'green',
+    'briella', 'dianne', 'saundra', 'gerrard', 'janella', 'cassandra', 'melody', 'brittney', 'austin'
 ]
 
-let titles = ['cold', 'wind', 'forgotten', 'hateful']
+let titles = ['cold', 'wind', 'forgotten', 'hateful', 'great', 'nobody', 'slayer']
 
 let locations = ['tobria', 'anarim', 'rabia']
-
-// function capitalCase(string) {
-//     return string.charAt(0).toUpperCase() + string.slice(1);
-// }
 
 
 /**

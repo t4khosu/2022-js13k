@@ -56,6 +56,7 @@ export class Player extends SpriteClass {
         if(--this.health == 0) this.game.transitionToScene('gameOver')
         this.invincibleTime += 40
         this.color = '#69553555'
+        this.game.notebook.updatePlayerName(this)
 
         return true
     }
