@@ -1,5 +1,7 @@
 # 2022 JS13K Submission - Book of Death
 
+![Screenshot](res/screenshot.png)
+
 **Controls**
 - Arrow Keys: move around
 - Space and Letters: write into the notebook
