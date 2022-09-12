@@ -50,7 +50,10 @@ export class Enemy extends SpriteClass {
                 ctx.fill();
             }
         });
-        this.patterns = getPatterns(level.difficulty)
+        this.patterns = getPatterns(
+            level.difficulty,
+            `rgb(${this.r},${this.g},${this.b})`
+        )
         this.patterns.forEach(pattern => {
             this.level.addChild(...pattern.pools)
         })

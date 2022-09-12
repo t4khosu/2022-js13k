@@ -3,8 +3,6 @@ import {Enemy} from "./enemy";
 import {Gravestone} from "./gravestone";
 import {Game} from "../game";
 
-let currentDifficulty = 7
-
 export class Level extends SpriteClass {
     color = '#8da683'
     width = 350
@@ -23,7 +21,7 @@ export class Level extends SpriteClass {
             scene: scene,
             player: scene.player,
             notebook: scene.notebook,
-            difficulty: currentDifficulty++,
+            difficulty: Game.instance.currentDifficulty++,
         });
 
         this.enemies = [new Enemy(this, randInt(120, 180), randInt(70, 120))]

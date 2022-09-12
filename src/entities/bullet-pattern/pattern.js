@@ -1,9 +1,9 @@
 import {randInt} from "kontra";
 import {BeamPool} from "../bullet-pool";
-import {chaseMovement, circleMovement, EnemyPattern, straightMovement} from "../enemy-pattern/pattern";
+import {straightMovement} from "../enemy-pattern/pattern";
 
-export function getBasicPool(arrays) {
-    const pool = new BeamPool()
+export function getBasicPool(arrays, color) {
+    const pool = new BeamPool(color)
     pool.arrays = arrays
     pool.arraySpread = 360 / arrays
     return pool
@@ -17,13 +17,13 @@ export function addFirerate(pool, difficulty){
     pool.fireRate = Math.floor(20 - Math.abs(-5 * Math.log(difficulty+3) + 6))
 }
 
-export function getPools(cost){
+export function getPools(cost, color){
     let account = cost
     const pools = []
     while (account > 0) {
         const arrays = randInt(1, Math.min(Math.ceil(account / 2), 6))
         account -= arrays
-        const pool = getBasicPool(arrays)
+        const pool = getBasicPool(arrays, color)
         addFirerate(pool, cost)
         if (account >= 0) {
             const spin = randInt(0, Math.min(Math.ceil(account / 2), 6))

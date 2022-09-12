@@ -15,7 +15,7 @@ export class EnemyPattern {
 
 }
 
-export function getPatterns(difficulty) {
+export function getPatterns(difficulty, color) {
     const patterns = []
     let difficultyScore = difficulty
     while (difficultyScore > 0) {
@@ -24,7 +24,7 @@ export function getPatterns(difficulty) {
         pattern.movement = getMovement(difficultyScore)
 
         const cost = randInt(3, Math.max(difficultyScore, 4))
-        pattern.pools = getPools(cost)
+        pattern.pools = getPools(cost, color)
         patterns.push(pattern)
         difficultyScore -= cost
     }

@@ -2,14 +2,27 @@ import {collides, PoolClass, SpriteClass} from "kontra";
 import {degToRad} from "kontra";
 
 export class Bullet extends SpriteClass {
+    constructor(color) {
+        super({
+            color: color,
+        });
+    }
     init(properties) {
         super.init({
             width: 3,
             height: 3,
-            color: "red",
-            ...properties
+            color: this.color,
+            ...properties,
+            render(){
+                let ctx = this.context
+                ctx.fillStyle = this.color
+                ctx.strokeStyle = `rgba(0, 0, 0, 0.5)`
+                ctx.fillRect(0, 0, this.width, this.height)
+                ctx.strokeRect(0, 0, this.width, this.height);
+            }
         })
     }
+
 
     update(){
         super.update()
@@ -72,8 +85,8 @@ export class BeamPool extends PoolClass {
     ttl = 200
     active = false
 
-    constructor() {
-        super({create: () => new Bullet()});
+    constructor(color = "red") {
+        super({create: () => new Bullet(color)});
     }
 
     getBeamConfigs(arrayIndex) {

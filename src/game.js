@@ -16,7 +16,6 @@ class GameScene extends SceneClass{
             objects: [game.notebook],
             player: game.player
         })
-        Level.difficulty = 1
         this.player.reset()
     }
 
@@ -50,6 +49,8 @@ export class Game {
 
     notebook = new Notebook(235, 70)
     player = new Player(this)
+
+    currentDifficulty = 1
 
     score = 0
 
@@ -85,6 +86,7 @@ export class Game {
 
                 case "gameOver":
                     this.scenes.game = new GameScene(this)
+                    this.currentDifficulty = 1
                     this.score = 0
                     this.transitionToScene("game")
                     return
