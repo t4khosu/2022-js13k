@@ -52,7 +52,10 @@ export class Enemy extends SpriteClass {
             }
         });
 
-        let patternDif = level.difficulty < 12 ? level.difficulty : level.difficulty - 6
+        let patternDif = level.difficulty < 10 ? level.difficulty : level.difficulty - 4
+        let sub = level.difficulty < 20 ? 0 : 4
+        patternDif -= sub
+
         this.patterns = getPatterns(
             patternDif,
             `rgb(${this.r},${this.g},${this.b})`
