@@ -11,19 +11,20 @@ var firstNames = [
 ]
 
 var lastNames = [
-    'li', 'lee', 'wang', 'berg', 'musa', 'tamm', 'park', 'moore', 'brown', 'nowak',
-    'meyer', 'lopez', 'smith', 'monet', 'akbas', 'novak', 'taylor', 'gracia', 'hansen',
+    'li', 'lee', 'wang', 'berg', 'musa', 'tamm', 'park', 'moore', 'evans', 'brown', 'nowak',
+    'meyer', 'lopez', 'smith', 'monet', 'akbas', 'novak', 'taylor', 'gracia', 'hansen', 'burton', 'walker',
     'melnyk', 'almeida', 'ibrahim', 'lavigne', 'adamcik', 'seatang', 'albescu', 'williams',
     'kowalska', 'einstein', 'pedersen', 'andersson'
 ]
 
 let titles = [
-    'cold', 'wind', 'forgotten', 'hateful', 'great', 'greedy', 'slayer', 'grumpy', 'sleepy'
+    'cold', 'wind', 'forgotten', 'hateful', 'great', 'greedy', 'slayer', 'grumpy', 'sleepy',
+    'lonely', 'hungry',
 ]
 
 let locations = [
     'sidney', 'berlin', 'paris', 'london', 'madrid', 'beijing', 'tallinn', 'stockholm',
-    'abuja', 'brasilia', 'rome', 'bukarest',
+    'abuja', 'brasilia', 'rome', 'bukarest', 'vienna', 'oslo'
 ]
 
 
@@ -36,7 +37,7 @@ let locations = [
  */
 function selectByDifficulty(difficulty, data){
 
-    let window = Math.floor(data.length / 3)
+    let window = Math.floor(data.length / 2)
     difficulty = Math.max(Math.min(difficulty-5, window * 2) - 1, 0)
     return data[randInt(difficulty, window + difficulty)]
 }
@@ -52,10 +53,10 @@ export function generateNameByDifficulty(difficulty){
 
     let name = firstName + ' ' + lastName
 
-    if(difficulty > 5 && Math.random() > 0.6){
+    if(difficulty > 5 && Math.random() > 0.4){
         name += ' the ' + titles[randInt(0, titles.length-1)]
     }
-    else if(difficulty > 10 && Math.random() > 0.7){
+    else if(difficulty > 10 && Math.random() > 0.5){
         name += ' from ' + locations[randInt(0, locations.length-1)]
     }
 
