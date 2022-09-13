@@ -13,6 +13,8 @@ back to the realm of death. You can do this by writing the names of the dead int
 your book of death. This book is inspired by the Book of the Dead, which is part of the 
 ancient Egypt. 
 
+Submission: https://js13kgames.com/entries/book-of-death
+
 ## Resources
 
 - kontra.js >= 8.0.0
