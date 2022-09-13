@@ -25,8 +25,8 @@ export class Level extends SpriteClass {
         });
 
         this.enemies = [new Enemy(this, randInt(120, 180), randInt(70, 120))]
-        if(this.difficulty > 10 && randInt(1, 100) > 85) this.enemies.push(new Enemy(this, randInt(80, 100), randInt(200, 230)))
-        if(this.difficulty > 20 && randInt(1, 100) > 85) this.enemies.push(new Enemy(this, randInt(200, 250), randInt(200, 230)))
+        if(this.difficulty > 12 && randInt(1, 100) > 60) this.enemies.push(new Enemy(this, randInt(80, 100), randInt(200, 230)))
+        if(this.difficulty > 22 && randInt(1, 100) > 60) this.enemies.push(new Enemy(this, randInt(200, 250), randInt(200, 230)))
 
         this.notebook.currentEnemies = this.enemies
         this.enemies.forEach(e => this.gravestones.push(new Gravestone(e.x-7, e.y-7, e.name, this)))

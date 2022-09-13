@@ -52,9 +52,8 @@ export class Enemy extends SpriteClass {
             }
         });
 
-        let patternDif = level.difficulty < 10 ? level.difficulty : level.difficulty - 4
-        let sub = level.difficulty < 20 ? 0 : 4
-        patternDif -= sub
+        let patternDif = level.difficulty < 12 ? level.difficulty : level.difficulty - 4
+        patternDif -= level.difficulty < 22 ? 0 : 5
 
         this.patterns = getPatterns(
             patternDif,

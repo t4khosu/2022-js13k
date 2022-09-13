@@ -1,6 +1,5 @@
 import {randInt} from "kontra";
 import {BeamPool} from "../bullet-pool";
-import {straightMovement} from "../enemy-pattern/pattern";
 
 export function getBasicPool(arrays, color) {
     const pool = new BeamPool(color)
