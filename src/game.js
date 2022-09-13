@@ -97,7 +97,7 @@ export class Game {
         })
 
         onKey(alphabet, (e) => {
-            if(this.transitioning) return
+            if(this.transitioning || this.transitioningTo == "gameOver") return
             clickSound()
             this.notebook.type(e.key)
         })

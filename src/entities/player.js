@@ -49,7 +49,7 @@ export class Player extends SpriteClass {
     /**
      * Call on enemy or bullet collision
      */
-    hit(d=1){
+    hit(d= 1){
         if(this.invincibleTime > 0) return false
 
         hitSound()
