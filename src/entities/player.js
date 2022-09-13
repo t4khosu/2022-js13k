@@ -54,10 +54,11 @@ export class Player extends SpriteClass {
 
         hitSound()
         this.health -= d
+        this.game.notebook.updatePlayerName(this)
         if(this.health <= 0) this.game.transitionToScene('gameOver')
         this.invincibleTime += 40
         this.color = '#69553555'
-        this.game.notebook.updatePlayerName(this)
+
 
         return true
     }

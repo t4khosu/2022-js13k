@@ -72,6 +72,7 @@ export class Enemy extends SpriteClass {
         if (this.name != row) return
 
         killSound()
+        this.level.notebook.lineBreak()
         this.level.removeChild(this)
         this.level.enemies = this.level.enemies.filter(e => e !== this)
         ++Game.instance.score

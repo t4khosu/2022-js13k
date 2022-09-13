@@ -104,8 +104,12 @@ export class Notebook extends SpriteClass {
      */
     updatePlayerName(player){
         let percentage = 1 - (player.health / player.maxHealth)
-        let len = Math.floor(percentage * player.name.length)
-        this.playerName.text = player.name.substring(0,len) + "_".repeat(player.name.length - len);
+        if(percentage > 1){
+            this.playerName.text = player.name
+        }else{
+            let len = Math.floor(percentage * player.name.length)
+            this.playerName.text = player.name.substring(0,len) + "_".repeat(player.name.length - len);
+        }
     }
 
     /**

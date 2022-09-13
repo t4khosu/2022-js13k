@@ -33,7 +33,6 @@ class GameScene extends SceneClass{
      */
     transition(){
         this.nextLevel()
-        this.notebook.lineBreak()
         this.notebook.updatePlayerName(this.player)
         this.notebook.x = 400
     }
@@ -82,6 +81,7 @@ export class Game {
                     if(this.notebook.children.at(-1).text.length > 3){
                         this.player.name ??= this.notebook.currentText().text.substring(2)
                         this.transitionToScene("game")
+                        this.notebook.lineBreak()
                     }
                     return
 
@@ -90,6 +90,8 @@ export class Game {
                     this.currentDifficulty = 1
                     this.score = 0
                     this.transitionToScene("game")
+                    this.notebook.updatePlayerName(this.player)
+                    this.notebook.lineBreak()
                     return
             }
 
