@@ -1,6 +1,6 @@
 import {randInt} from "kontra";
 
-var firstNames = [
+const firstNames = [
     'ari', 'amy', 'mary', 'john', 'lisa', 'mark', 'paul', 'james', 'linda', 'david',
     'susan', 'sarah', 'karen', 'nancy', 'betty', 'emily', 'donna', 'carol', 'kevin',
     'brian', 'laura', 'jacob', 'robert', 'joseph', 'thomas', 'daniel', 'sandra', 'donald',
@@ -10,22 +10,24 @@ var firstNames = [
     'margaret', 'kimberly', 'michelle', 'jonathan', 'elizabeth', 'stephanie', 'christopher',
 ]
 
-var lastNames = [
+const lastNames = [
     'li', 'lee', 'wang', 'berg', 'musa', 'tamm', 'park', 'moore', 'evans', 'brown', 'nowak',
     'meyer', 'lopez', 'smith', 'monet', 'akbas', 'novak', 'taylor', 'gracia', 'hansen', 'burton', 'walker',
     'melnyk', 'almeida', 'ibrahim', 'lavigne', 'adamcik', 'seatang', 'albescu', 'williams',
     'kowalska', 'einstein', 'pedersen', 'andersson'
 ]
 
-let titles = [
+const titles = [
     'cold', 'wind', 'forgotten', 'hateful', 'great', 'greedy', 'slayer', 'grumpy', 'sleepy',
     'lonely', 'hungry',
 ]
 
-let locations = [
+const locations = [
     'sidney', 'berlin', 'paris', 'london', 'madrid', 'beijing', 'tallinn', 'stockholm',
     'abuja', 'brasilia', 'rome', 'bukarest', 'vienna', 'oslo'
 ]
+
+let alreadyGenerated = [""]
 
 
 /**
@@ -48,17 +50,26 @@ function selectByDifficulty(difficulty, data){
  * @returns {string}
  */
 export function generateNameByDifficulty(difficulty){
-    let firstName = selectByDifficulty(difficulty, firstNames)
-    let lastName = selectByDifficulty(difficulty, lastNames)
+    let name = ""
+    let count = 0
 
-    let name = firstName + ' ' + lastName
+    while(alreadyGenerated.includes(name)){
+        if(count++ > 10){
+            alreadyGenerated = [""]
+        }
+        let firstName = selectByDifficulty(difficulty, firstNames)
+        let lastName = selectByDifficulty(difficulty, lastNames)
+        name = firstName + ' ' + lastName
 
-    if(difficulty > 5 && Math.random() > 0.4){
-        name += ' the ' + titles[randInt(0, titles.length-1)]
+        if(difficulty > 5 && Math.random() > 0.4){
+            name += ' the ' + titles[randInt(0, titles.length-1)]
+        }
+        else if(difficulty > 10 && Math.random() > 0.5){
+            name += ' from ' + locations[randInt(0, locations.length-1)]
+        }
     }
-    else if(difficulty > 10 && Math.random() > 0.5){
-        name += ' from ' + locations[randInt(0, locations.length-1)]
-    }
+
+    alreadyGenerated.push(name)
 
     return name
 }
